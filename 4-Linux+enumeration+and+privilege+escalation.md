@@ -1,6 +1,4 @@
 
-![1a5ba34a808064b079f454e8e4efa445--emperor-penguins-the-penguins.jpg](attachment:1a5ba34a808064b079f454e8e4efa445--emperor-penguins-the-penguins.jpg)
-
 ## Info-sheet
 
 - DNS-Domain name:
