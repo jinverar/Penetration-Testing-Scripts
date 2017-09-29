@@ -1,6 +1,42 @@
 # Penetration-Testing-Scripts
 My recon and vuln scripts
 
+These files are ment to work with juypter notebook.
+
+#requirements
+
+juypter notebook
+
+pip3 install --upgrade pip
+
+pip3 install jupyter
+
+jupyter notebook
+
+#enable ssl with juypter
+
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
+
+jupyter notebook  --config=/home/jinverar/.jupyter/jupyter_notebook_config.py --certfile=/home/jinverar/.jupyter/jupytercert.pem --keyfile /home/jinverar/.jupyter/mykey.key --ip=*ip*
+
+#play with some juypter extentions
+
+pip install jupyter_contrib_nbextensions
+
+jupyter contrib nbextension install --user
+
+pip install --upgrade six
+
+jupyter nbextension list
+
+#enable drag and drop with juypter
+
+jupyter nbextension enable dragdrop
+
+https://192.168.1.118:8888/nbextensions
+
+make sure to uncheck the box unter configureable nbextensions > then enable drag and drop
+
 
 Please help Contribute!
 
