@@ -3,6 +3,8 @@ My recon and vuln scripts
 
 These files are ment to work with juypter notebook. The idea is to import them into juypter and then duplicate the notebooks when you select a target. Then you can rename the copys to be *ipaddress*(hostname). 
 
+the current concept is to use juypter notebooks with markdown language and import pictures into cells below. This can aid in writing pentesting reports and keep us organized. 
+
 The future concept is to leverage the power of Juypter which can import and read other files such as .html, .csv, or xml. Then the idea is to start importing scans and figure out how to parse them with juypter later on. We can create graphs and do big data analysis along with penetration testing.  
 
 We can run juypter notebook from KALI or another local server and colaborate and share notebooks. 
