@@ -1,8 +1,4 @@
 
-![abb0ba2d7f06673db49ab6717a44efc1.jpg](attachment:abb0ba2d7f06673db49ab6717a44efc1.jpg)
-
-![](/images/1033452105.jpg)
-
 ## Info-sheet
 
 
