@@ -20,7 +20,7 @@ jupyter notebook
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
 
-jupyter notebook  --config=/home/jinverar/.jupyter/jupyter_notebook_config.py --certfile=/home/jinverar/.jupyter/jupytercert.pem --keyfile /home/jinverar/.jupyter/mykey.key --ip=*ip*
+jupyter notebook  --config=/home/*user*/.jupyter/jupyter_notebook_config.py --certfile=/home/*user*/.jupyter/jupytercert.pem --keyfile /home/*user*/.jupyter/mykey.key --ip=*ip*
 ```
 # play with some juypter extentions
 ```
@@ -36,7 +36,7 @@ jupyter nbextension list
 ```
 jupyter nbextension enable dragdrop
 ```
-https://192.168.1.118:8888/nbextensions
+https://*ipaddress*:8888/nbextensions
 ```
 make sure to uncheck the box unter configureable nbextensions > then enable drag and drop
 ```
