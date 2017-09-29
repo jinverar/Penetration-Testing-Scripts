@@ -1,7 +1,7 @@
 # Penetration-Testing-Scripts
 My recon and vuln scripts
 
-These files are ment to work with juypter notebook.
+These files are ment to work with juypter notebook. The idea is to import them into juypter and then duplicate the notebooks when you select a target. Juypter can also import and read other files such as .csv or xml. The idea is to start importing scans and figure out how to parse them with juypter later on. 
 
 # requirements
 
