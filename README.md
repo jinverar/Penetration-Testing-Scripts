@@ -1,4 +1,4 @@
-# recon-and-vuln
+# Penetration-Testing-Scripts
 My recon and vuln scripts
 
 
