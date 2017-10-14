@@ -155,6 +155,12 @@ Less likely
 
 ### Useful commands
 
+### Switch user to root
+
+```
+su root
+```
+
 
 ####  Spawning shell
 python -c 'import pty; pty.spawn("/bin/sh")'
@@ -243,6 +249,20 @@ cat /etc/lsb-release      # Debian based
 
 cat /etc/redhat-release   # Redhat based
 
+#### What's the distribution type? What version?
+
+cat /proc/version
+
+uname -a
+
+uname -mrs
+
+rpm -q kernel
+
+dmesg | grep Linux
+
+ls /boot | grep vmlinuz-
+
 #### Who are we? Where are we?
 
 id
@@ -272,6 +292,77 @@ dpkg -l (Debian based OSs)
 rpm -qa (CentOS / openSUSE )
 
 uname -a
+
+#### What can be learnt from the enviro variables
+
+cat /etc/profile
+
+cat /etc/bashrc
+
+cat ~/.bash_profile
+
+cat ~/.bashrc
+
+cat ~/.bash_logout
+
+env
+
+set
+
+
+#### What services are running? Which service has which user privilege?
+
+ps aux
+
+ps -ef
+
+top
+
+cat /etc/services
+
+ps aux | grep root
+
+ps -ef | grep root
+
+#### What applications are installed? What version are they? Are they currently running?
+ 
+ls -alh /usr/bin/
+
+ls -alh /sbin/
+
+dpkg -l
+
+rpm -qa
+
+ls -alh /var/cache/apt/archivesO
+
+ls -alh /var/cache/yum/
+
+#### What jobs are scheduled?
+
+crontab -l
+
+ls -alh /var/spool/cron
+
+ls -al /etc/ | grep cron
+
+ls -al /etc/cron*
+
+cat /etc/cron*
+
+cat /etc/at.allow
+
+cat /etc/at.deny
+
+cat /etc/cron.allow
+
+cat /etc/cron.deny
+
+cat /etc/crontab
+
+cat /etc/anacrontab
+
+cat /var/spool/cron/crontabs/root
 
 #### Ask yourself can you answer the following questions
 
