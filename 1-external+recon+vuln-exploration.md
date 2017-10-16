@@ -425,6 +425,8 @@ nmap -v --top-ports=20 --script=vuln script-args=unsafe *target* -oX vulns-resul
 
 xsltproc vulns-results.xml -o results.html
 
+### Map the route to host 
+
 ### Get network routing information
 
 
@@ -706,7 +708,7 @@ insert smtp scasn here
 
 There is a custom SMTP python scanner in PWK workbook and within my custom scripts
 
-
+### profile target for passwords
 
 ### Email Harvesting
 
