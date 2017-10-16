@@ -187,12 +187,19 @@ Lists your current user. Not present in all versions of Windows; however shall b
 ```
 whoami
 ```
+```
+whoami /groups
+
+```
+
 
 Lists current user, sid, groups current user is a member of and their sids as well as current privilege level.
 
 ```
 whoami /all
 ```
+
+
 
 #### set 
 set shows all current environmental variables. Specific ones to look for are 
@@ -218,6 +225,12 @@ schtasks /query /fo LIST /v
 Check this file:
 
 c:\WINDOWS\SchedLgU.Txt
+
+### check runas
+
+```
+runas administrator
+```
 
 #### AT command schedule an interactive command
 
@@ -276,6 +289,8 @@ netstat -nao | findstr LISTENING
 XP and up for -o flag to get PID
 
 netstat -na | findstr LISTENING
+
+netstat -bano | list ports and connections
 
 
 ### netsh diag show all
@@ -379,6 +394,10 @@ viper-shell/application/modules/post/
 
 
 #### net share
+
+```
+net share
+```
 
 nbtstat -a [ip here]
 
