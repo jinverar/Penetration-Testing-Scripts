@@ -1703,6 +1703,8 @@ enter sql type
 ```
 ### Inline SQL injection
 
+http://securityidiots.com/Web-Pentest/SQL-Injection/
+
 Inject part of SQL into username field and the other part into Password field
 
 ```
