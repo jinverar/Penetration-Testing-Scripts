@@ -1320,6 +1320,10 @@ Look for comments in the code and try to remove them.
 
 #### GREASE MONKEY
 
+### burp fuzz application
+
+Go to the login form and send it to the burp intruder. Run a list of users into username and run a list of passwords into the password field. Use the cluster attack. 
+
 ### Default/Weak login
 
 Search documentation for default passwords and test them
@@ -1659,6 +1663,10 @@ nc -lvp 443
 (bypasses allow_url_fopen=Off)
 
 
+### burp decoder
+
+If you have found any encoded text send it to burp decoder now
+
 ### SQL-Injection recon
 
 Get the name and the vesion then look for exploits
@@ -1762,6 +1770,8 @@ If luck is on your side, you will get login without any login name or password. 
 
 
 ### Burp SQL manual injections
+
+http://kaoticcreations.blogspot.ca/2011/11/burp-suite-part-i-intro-via-sql.html
 
 use burp intruder to inject sql from wordlists
 
