@@ -2,15 +2,32 @@
 ## Info-sheet
 
 
-- DNS-Domain name:
-- Host name:
-- OS:
-- Server:
-- Workgroup:
-- Windows domain:
-- Services and ports:
++ IP address: *target*
++ DNS-Domain name: *target-domain*
++ Host name: *host-name*
++ OS: *os*
++ Web Server (web server name): *web-server*
++ Web server modules: *web-modules*
++ Kernel: *os-type*
++ ftp version: *ftp-version*
++ telnet Version: *telnet-version*
++ SSH service version: *ssh-version*
++ SMTP version: *smtp-version*
++ tftp version:*tftp-version*
++ Workgroup: *workgroup*
++ Windows domain: *win-domain*
++ samba version : *samba-version*
++ database type: *database*
++ database version:*database-version*
++ mysql version: *mysql-version*
++ scripting languages:*scripting* 
++ possible users:*users*
++ possible passwords:*passwords*
 
+```
 INSERTTCPSCAN
+```
+
 
 #### list of privledge escalation tricks for windows versions
 
