@@ -1087,6 +1087,19 @@ insert links here
 ```
 ping; ls -hal
 ping | ls -hal
+
+tools for command injection
+
+grep pattern input.txt | sort | uniq -c
+
+chown
+chmod
+cut
+sed
+awk
+
+go into enumeration mode pulling blind files
+
 ```
 
 ### try command injection with netcat shell
@@ -1854,7 +1867,7 @@ insert into myexploit values(load_file('/home/folder/1518.so'));
 
 SELECT @@version
 SELECT version()
-SELECT banner from v$version
+SELECT banner from v*dollar-sign*version
 
 ```
 
