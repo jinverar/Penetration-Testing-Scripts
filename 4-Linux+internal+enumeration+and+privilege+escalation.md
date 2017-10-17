@@ -1,29 +1,29 @@
 ## Info-sheet
 
-•	IP address: *target*
-•	DNS-Domain name: *target-domain*
-•	Host name: *host-name*
-•	OS: *os*
-•	Server: *web-server*
-•	Kernel: *os-type*
-•	Workgroup: *workgroup*
-•	Linux domain: *lin-domain*
-•	Kernel exploits:
-•	Cleartext password:
-•	Reconfigure service parameters:
-•	Programs running as root:
-•	Installed software:
-•	Weak/reused/plaintext passwords:
-•	Inside service:
-•	Installed software:
-•	Scheduled tasks:
-•	Weak passwords:
-•	Suid misconfiguration:
-•	World writable scripts invoked by root:
-•	Unmounted filesystems:
-•	Private ssh keys:
-•	Bad path configuration:
-•	Cronjobs:
++	IP address: *target*
++	DNS-Domain name: *target-domain*
++	Host name: *host-name*
++	OS: *os*
++	Server: *web-server*
++	Kernel: *os-type*
++	Workgroup: *workgroup*
++	Linux domain: *lin-domain*
++	Kernel exploits:
++	Cleartext password:
++	Reconfigure service parameters:
++	Programs running as root:
++	Installed software:
++	Weak/reused/plaintext passwords:
++	Inside service:
++	Installed software:
++	Scheduled tasks:
++	Weak passwords:
++	Suid misconfiguration:
++	World writable scripts invoked by root:
++	Unmounted filesystems:
++	Private ssh keys:
++	Bad path configuration:
++	Cronjobs:
 
 
 ### Privilege escalation quick links
