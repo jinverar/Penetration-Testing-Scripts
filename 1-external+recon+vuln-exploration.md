@@ -19,21 +19,29 @@ Esc + F Find and replace on your code but not the outputs.
 
 Find&replace *target* with the target IP address  //DONE
 
-find&replace *target-domain* with target domain name  //TODO
+find&replace *target-domain* with http://*ipaddress or domain name*/ name  //DONE
 
 find&replace *localhost* with localhost ip address
 
-find&replace *dollar-sign* with /*dollar-sign* //TODO known issue /*dollar-sign* will change the markdown language. Remove this line. 
+Do not actually do the following but take note that my juypter has a issue with the dollarsign so I have modified all my scripts to be *dollar-sign* which you will have to change before running scripts
+
+find&replace *dollar-sign* with /*dollar-sign* or find a way to escape the real dollasign. //todo
+
+//TODO known issue /*dollar-sign* will change the markdown language. Remove this line. 
 ```
 
 ### one hour prior reboot and take a snapshot of attack station
 
 ### Create three lists in a workbook
 
-```bash
-Username:password
-Usernames
-Passwords
+```
+
+Username:password -
+
+Usernames found -
+
+Passwords found -
+
 ```
 ### Test viper shell with lab environment
 
@@ -155,7 +163,7 @@ Refer to the following items within the pen testing red workbook
 
 •	RPCBIND
 
-NOTE: Always start with a stealthy scan to avoid closing ports.
+NOTE: Always start with a stealthy scan to avoid closing ports. 
 
 ### GOOGLE DORKS
 
@@ -171,15 +179,19 @@ netdiscover
 
 ### Syn-scan
 
-Make a list of targets from the list of targets provided
+Make a list of targets from the list of targets provided. Call the list "Livehosts.txt"
 
-Do a synscan for the top 20 ports and then do a synscan for all ports
+Do a synscan for the top 100 ports and then do a synscan for all ports
 
-nmap -sS  --top-ports 20 --open *target*
+nmap -sS  --top-ports 100 --open *target*
+
+nmap -sS  --top-ports 100 -iL LiveHosts.txt
+
+### Syn-Scan all ports and output to xml format
 
 nmap -sS -p- *target* -oX synscan1.xml
 
-nmap -sS --open *target* -oX synscan-open.xml {Just open connections - nice clean output}
+nmap -sS --open *target* -oX synscan2-open.xml {Just open connections - nice clean output}
 
 ```
 Insert Scan
@@ -324,6 +336,7 @@ Scan for vulns with ./scan.sh *ip address* vuln --force
 scan.sh *target* vuln --force
 
 ```
+Insert Scan
 
 ```
 
@@ -346,13 +359,16 @@ ftp-vsftpd-backdoor.nse
 irc-unrealircd-backdoor.nse
 
 
-### Scan for UDP
+### Scan for UDP and TCP with specific ports
 
+U: = UDP
 T: = tcp 
 
 nmap INSERTIPADDRESS -sU
 
 nmap -v -sU -sT -p U:53,69,111,137,T:21-25,80,139,8080,T:160-162 *target*
+
+### Scan for UDP with SERVICE
 
 nmap -v -sV -sU -sT -p U:53,69,111,137,T:21-25,80,139,8080,T:160-162 *target*
 
@@ -360,6 +376,11 @@ nmap -sU -p- *target*
 
 nc -nv -u -z -w 1 *target* 160-162  > look within wireshark for OPEN ports
 
+```
+
+Insert Scan
+
+```
 
 ### UnicornScan
 
@@ -461,8 +482,9 @@ use with internal ip ranges
 
 dmitry -p *target* -f -b
 
-
 ```
+
+Insert Scan
 
 ```
 
@@ -470,6 +492,13 @@ dmitry -p *target* -f -b
 ### banner grabbing
 
 nmap -sV -sT *target*
+
+```
+
+Insert Scan
+
+```
+
 
 ### list all services in a chart and then list all nmap scripts for that service
 
@@ -500,7 +529,9 @@ Open up web browser and browse to
 ftp://*ipaddress*
 
 nmap -v -p 21 --script=ftp-anon.nse *target*-254
+
 ```
+
 insert scan
 
 ```
@@ -509,8 +540,8 @@ nmap --script=ftp-anon,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-
 
 
 ```
-insert scan
 
+insert scan
 
 ```
 
@@ -524,8 +555,21 @@ ftp-proftpd-backdoor
 
 Categories: exploit intrusive malware vuln
 
+```
+
+Insert Scan
+
+```
+
 
 #### python ftpanon.py *target*/24
+
+```
+
+Insert Scan
+
+```
+
 
 #### FTP quick commands
 
@@ -546,7 +590,7 @@ cd c:\  #hopefully you can see a good error message for location
 dir
 
 ```
-can you get files
+can you get files yes or no. If so which ones? list stuff here
 ```
 ascii
 
@@ -570,27 +614,45 @@ MSF anaonymous login scan
 
 ### Port 22 - SSH
 
-- Name:
-- Version:
-- Takes-password:
-- If you have usernames test login with username:username
++ Name:
++ Version:
++ Takes-password:
+
+If you have usernames test login with Then look for errors. 
+
+ssh username@*target*
 
 you could try to connect using lists
 
-```
 ssh -L users.txt -P passwords.txt -s 22 *target*
 
 ```
+Insert Scan
 
-INSERTSSHCONNECT
-
-
+```
 nc *target* 22
 
 ```
+Insert Scan
+```
+public key:
 
 ```
+insert key
+```
 
+private key:
+
+```
+insert key
+```
+authroized hey:
+
+```
+insert key
+```
+
+### confirm the public key and private key are not mixed up and confirm the authorized key is not the private key. 
 
 ### SSH automated banner grabbing
 
@@ -644,9 +706,9 @@ ListOS/BannerSolaris 8/SunOS 5.8Solaris 2.6/SunOS 5.6Solaris 2.4 or 2.5.1/Unix(r
 
 https://pen-testing.sans.org/resources/papers/gcih/smtp-victim-good-time-105208
 
-- Name:
++ Name:
 
-- Version:
++ Version:
 
 ```
 
@@ -699,6 +761,33 @@ Fingerprint server
 - sendmail.cf 
 
 - submit.cf 
+
+#### Enumerate users
+
+smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/unix_users.txt -t *target*
+
+```
+insert users
+```
+
+#### Run finger against strange users
+
+finger against the users
+
+finger strange@*target*
+ 
+finger user@*target*
+
+example
+```
+root@kali:~# finger strange@192.168.1.72
+Login: vulnix            Name:
+Directory: /home/strange              Shell: /bin/bash
+Never logged in.
+No mail.
+No Plan.
+
+```
 
 #### SMTP Nmap
 
@@ -2521,16 +2610,42 @@ tnscmd10g version -h *target*
 tnscmd10g status -h *target*
 
 
-### Port 2049 - NFS
+### Port 2049 - NFS Enumeration
 
+You’ll need to install nfs-common package if it doesn’t exist already
+
+showmount -h
+
+showmount *target*
 
 showmount -e *target*
 
 If you find anything you can mount it like this:
 
+mkdir /tmp/nfs
+
 mount *target*:/ /tmp/NFS
 
 mount -t *target*:/ /tmp/NFS
+
+mount -t nfs 192.168.1.72:/home/vulnix /tmp/nfs -nolock
+
+cd /tmp
+
+example
+```
+ls -al
+total 52
+drwxrwxrwt 12 root       root       4096 Oct 30 23:22 .
+drwxr-xr-x 22 root       root       4096 Sep 29 03:47 ..
+...
+drwxr-x---  2 nobody     4294967294 4096 Sep  2  2012 nfs
+...
+root@kali:/tmp# cd /tmp/nfs
+bash: cd: /tmp/nfs: Permission denied
+
+```
+if you get permission denied consider root squashing. Try to create a known user on your local machine. Then mount
 
 
 ### Port 2100 - Oracle XML DB
@@ -2549,16 +2664,6 @@ scott:tiger
 Default passwords
 
 https://docs.oracle.com/cd/B10501_01/win.920/a95490/username.htm
-
-### Port 2049 - NFS
-
-showmount -e *target*
-
-If you find anything you can mount it like this:
-
-mount *target*:/ /tmp/NFS
-
-mount -t *target*:/ /tmp/NFS
 
 
 ### Port 3306 - MySQL
