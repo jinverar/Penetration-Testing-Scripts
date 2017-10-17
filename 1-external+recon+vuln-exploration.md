@@ -4,27 +4,27 @@ What is my local host ip address *localhost*
 
 Info- Sheet
 
-•	IP address: *target*
-•	DNS-Domain name: *target-domain*
-•	Host name: *host-name*
-•	OS: *os*
-•	Web Server (web server name): *web-server*
-•	Web server modules: *web-modules*
-•	Kernel: *os-type*
-•	ftp version: *ftp-version*
-•	Telnet Version: *telnet-version*
-•	SSH service version: *ssh-version*
-•	SMTP version: *smtp-version*
-•	Tftp version:*tftp-version*
-•	Workgroup: *workgroup*
-•	Windows domain: *win-domain*
-•	samba version : *samba-version*
-•	database type: *database*
-•	database version:*database-version*
-•	mysql version: *mysql-version*
-•	scripting languages:*scripting* 
-•	possible users:*users*
-•	possible passwords:*passwords*
++ IP address: *target*
++ DNS-Domain name: *target-domain*
++ Host name: *host-name*
++ OS: *os*
++ Web Server (web server name): *web-server*
++ Web server modules: *web-modules*
++ Kernel: *os-type*
++ ftp version: *ftp-version*
++ telnet Version: *telnet-version*
++ SSH service version: *ssh-version*
++ SMTP version: *smtp-version*
++ tftp version:*tftp-version*
++ Workgroup: *workgroup*
++ Windows domain: *win-domain*
++ samba version : *samba-version*
++ database type: *database*
++ database version:*database-version*
++ mysql version: *mysql-version*
++ scripting languages:*scripting* 
++ possible users:*users*
++ possible passwords:*passwords*
 
 
 Services and ports:
@@ -2775,27 +2775,28 @@ Vulnerability analysis
 What is my local host: *localhost*
 
 Info- Sheet
-•	IP address: *target*
-•	DNS-Domain name: *target-domain*
-•	Host name: *host-name*
-•	OS: *os*
-•	Web Server (web server name): *web-server*
-•	Web server modules: *web-modules*
-•	Kernel: *os-type*
-•	ftp version: *ftp-version*
-•	Telnet Version: *telnet-version*
-•	SSH service version: *ssh-version*
-•	SMTP version: *smtp-version*
-•	Tftp version:*tftp-version*
-•	Workgroup: *workgroup*
-•	Windows domain: *win-domain*
-•	samba version : *samba-version*
-•	database type: *database*
-•	database version:*database-version*
-•	mysql version: *mysql-version*
-•	scripting languages:*scripting* 
-•	possible users:*users*
-•	possible passwords:*passwords*
+
++ IP address: *target*
++ DNS-Domain name: *target-domain*
++ Host name: *host-name*
++ OS: *os*
++ Web Server (web server name): *web-server*
++ Web server modules: *web-modules*
++ Kernel: *os-type*
++ ftp version: *ftp-version*
++ telnet Version: *telnet-version*
++ SSH service version: *ssh-version*
++ SMTP version: *smtp-version*
++ tftp version:*tftp-version*
++ Workgroup: *workgroup*
++ Windows domain: *win-domain*
++ samba version : *samba-version*
++ database type: *database*
++ database version:*database-version*
++ mysql version: *mysql-version*
++ scripting languages:*scripting* 
++ possible users:*users*
++ possible passwords:*passwords*
 
 
 
