@@ -1,21 +1,42 @@
 #### Info-sheet recon info for target
-- DNS-Domain name:
-- Host name:
-- OS:
-- Server:
-- Kernel:
-- Workgroup:
-- Windows domain:
-- samba version
-- web server
-- sctipting language
+
+What is my local host ip address *localhost*
+
+Info- Sheet
+
+•	IP address: *target*
+•	DNS-Domain name: *target-domain*
+•	Host name: *host-name*
+•	OS: *os*
+•	Web Server (web server name): *web-server*
+•	Web server modules: *web-modules*
+•	Kernel: *os-type*
+•	ftp version: *ftp-version*
+•	Telnet Version: *telnet-version*
+•	SSH service version: *ssh-version*
+•	SMTP version: *smtp-version*
+•	Tftp version:*tftp-version*
+•	Workgroup: *workgroup*
+•	Windows domain: *win-domain*
+•	samba version : *samba-version*
+•	database type: *database*
+•	database version:*database-version*
+•	mysql version: *mysql-version*
+•	scripting languages:*scripting* 
+•	possible users:*users*
+•	possible passwords:*passwords*
+
+
 Services and ports:
 
+```
 INSERTTCPSCAN
+```
+
 
 #### Juypter Notebook find and replace the following
 ```
-Esc + F Find and replace on your code but not the outputs.
+Esc + F Find and replace on anything that has stars from above *find and replace me*. 
 
 Find&replace *target* with the target IP address  //DONE
 
@@ -2748,6 +2769,35 @@ Msf>use auxiliary/scanner/vnc/vnc_none_auth
 # Vulnerability analysis
 
 Now we have gathered information about the system. Now comes the part where we look for exploits and vulnerabilities and features.
+
+Vulnerability analysis
+
+What is my local host: *localhost*
+
+Info- Sheet
+•	IP address: *target*
+•	DNS-Domain name: *target-domain*
+•	Host name: *host-name*
+•	OS: *os*
+•	Web Server (web server name): *web-server*
+•	Web server modules: *web-modules*
+•	Kernel: *os-type*
+•	ftp version: *ftp-version*
+•	Telnet Version: *telnet-version*
+•	SSH service version: *ssh-version*
+•	SMTP version: *smtp-version*
+•	Tftp version:*tftp-version*
+•	Workgroup: *workgroup*
+•	Windows domain: *win-domain*
+•	samba version : *samba-version*
+•	database type: *database*
+•	database version:*database-version*
+•	mysql version: *mysql-version*
+•	scripting languages:*scripting* 
+•	possible users:*users*
+•	possible passwords:*passwords*
+
+
 
 Visualize your ATTACK SURFACE based on targets information for web apps it would look like below
 
