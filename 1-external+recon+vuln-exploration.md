@@ -64,6 +64,23 @@ Usernames found -
 Passwords found -
 
 ```
+
+### wordlists found on kali
+
+```
+/usr/share/metasploit-framework/data/wordlists
+/usr/share/dirbuster/wordlists
+/usr/share/dirb/wordlists
+/usr/share/wordlists
+/usr/share/sparta/wordlists
+/usr/share/fern-wifi-cracker/extras/wordlists
+/usr/share/doc/wordlists
+/usr/share/golismero/wordlist
+/usr/share/wfuzz/wordlist
+/var/lib/dictionaries-common/wordlist
+
+```
+
 ### Test viper shell with lab environment
 
 ### Start wireshark or TCPDUMP after you get the p0f info
@@ -114,6 +131,7 @@ Msf > search services
 ### Start any custom password sniffing tools
 
 Start metasploit smb password sniffer
+
 Use auxillery/sniffer/psnuffle
 
 
@@ -274,8 +292,6 @@ hping3 *target* --udp -c 1 -p 34567
 ssh root@*target*
 
 ```
-
-
 
 ### nmap script shortcut
 
@@ -543,11 +559,13 @@ Refer to pen testing red workbook
 - ftpanon.py
 - ftprand.py
 
+```
 INSERTFTPTEST
+```
 
 Open up web browser and browse to
 
-ftp://*ipaddress*
+ftp://*target*
 
 nmap -v -p 21 --script=ftp-anon.nse *target*-254
 
@@ -642,6 +660,15 @@ MSF anaonymous login scan
 If you have usernames test login with Then look for errors. 
 
 ssh username@*target*
+
+look at error codes all the time
+
+ssh -v
+ssh -vv
+
+non standard ports
+
+ssh -vv -p 210 root@*target*
 
 you could try to connect using lists
 
@@ -753,11 +780,40 @@ Fingerprint server
 
 2. VRFY root
 
+3. EXPN blah
+
+##### EXPN 
+
+Is Port 25 open 
+
+Fingerprint server 
+
+1. telnet *target* 25 (banner grab) 
+
+2. EXPN root
+
+3. EXPN blah
+
+#### RCPT
+
+Is Port 25 open 
+
+Fingerprint server 
+
+1. telnet *target* 25 (banner grab) 
+
+2. RCPT root
+
+3. RCPT blah
+
+
 #### Mail Server Testing 
 
 - Enumerate users 
 - VRFY username (verifies if username exists - enumeration of accounts) 
 - EXPN username (verifies if username is valid - enumeration of accounts) 
+
+
 
 #### Mail Spoof Test 
 
@@ -787,11 +843,29 @@ Fingerprint server
 
 smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/unix_users.txt -t *target*
 
+smtp-user-enum.pl -M EXPN -U users.txt -t *target*
+
+smtp-user-enum.pl -M RCPT -U users.txt -t *target*
+
 ```
 insert users
 ```
 
 #### Run finger against strange users
+
+git clone https://github.com/Kan1shka9/Finger-User-Enumeration.git
+
+cd Finger-User-Enumeration/ ;ls
+
+./finger_enum_user.sh
+
+Script takes a file with a list of users as argument
+
+Usage:
+
+./finger_enum_user.sh <filename.txt>
+
+./finger_enum_user.sh ../users.txt
 
 finger against the users
 
@@ -799,10 +873,10 @@ finger strange@*target*
  
 finger user@*target*
 
-example
+example insert finger outbut below
 ```
 root@kali:~# finger strange@192.168.1.72
-Login: vulnix            Name:
+Login: strange            Name:
 Directory: /home/strange              Shell: /bin/bash
 Never logged in.
 No mail.
@@ -812,16 +886,63 @@ No Plan.
 
 #### SMTP Nmap
 
+locate nse |grep smtp
+
 ```
 nmap --script=smtp-commands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 *target*
+
+nmap -script=/usr/share/nmap/scripts/smtp-enum-users.nse -p25 *target*
+
 ```
 
 ```
-insert smtp scasn here
+insert smtp scan here
 
 ```
 
-There is a custom SMTP python scanner in PWK workbook and within my custom scripts
+#### ismtp enumeration
+
+https://github.com/crunchsec/ismtp/blob/master/ismtp.py
+
+
+./ismtp.py -h 192.168.236.137:25 -e /usr/share/metasploit-framework/data/wordlists/unix_users.txt
+
+```
+insert smtp scan here
+
+```
+
+#### get smtp version with metasploit
+
+use auxiliary/scanner/smtp/smtp_enum
+
+```
+insert smtp scan here
+
+```
+
+#### enumerate smtp users with metasploit
+
+use auxiliary/scanner/smtp/smtp_enum
+
+set rhosts
+
+run
+
+```
+insert smtp scan here
+
+```
+### Enumerate email addresses
+
+./smtp-user-enum -h
+
+./smtp-user-enum.pl -D *target* -M RCPT -U users.txt -t *target*
+
+```
+insert smtp scan here
+
+```
 
 ### profile target for passwords
 
@@ -956,10 +1077,6 @@ nmap --script http-headers *target* or *target-domain*
 ```
 incert nmap http-header-info
 ```
-
-
-
-
 
 example: of getting header information
 
@@ -2023,10 +2140,6 @@ If you must do this with a hidden field, just download the source HTML from the 
 ```
 If luck is on your side, you will get login without any login name or password. ![image.png](attachment:image.png)
 
-
-
-
-
 ### Burp SQL manual injections
 
 http://kaoticcreations.blogspot.ca/2011/11/burp-suite-part-i-intro-via-sql.html
@@ -2078,8 +2191,6 @@ refer to sql injection book inside kindle
 
 ### Zed Attack proxy
 
-
-
 ### SQLMAP
 
 ```
@@ -2120,8 +2231,6 @@ You may or may not know that sqlmap also has password cracking capabilities. By 
 sqlmap -o -u "192.168.236.135:1337/978345210/index.php" --data="username=admin&password=pass&submit=+Login+" --method=POST --level=3 --threads=10 --dbms=MySQL --users --passwords method=POST --level=3 --threads=10 --dbms=MySQL --dump
 
 ```
-
-
 ### Get
 
 sqlmap -u "http://*target*/index.php?id=1" --dbms=mysql
@@ -2129,7 +2238,6 @@ sqlmap -u "http://*target*/index.php?id=1" --dbms=mysql
 ### Crawl
 
 sqlmap -u http://*target* --dbms=mysql --crawl=3
-
 
 ### Sql-login-bypass
 
@@ -2635,7 +2743,13 @@ tnscmd10g status -h *target*
 
 You’ll need to install nfs-common package if it doesn’t exist already
 
+apt-cache search showmount
+
+apt-get install nfs-common
+
 showmount -h
+
+showmount --exports *target*
 
 showmount *target*
 
@@ -2645,11 +2759,11 @@ If you find anything you can mount it like this:
 
 mkdir /tmp/nfs
 
-mount *target*:/ /tmp/NFS
+mount *target*:/ /tmp/nfs
 
-mount -t *target*:/ /tmp/NFS
+mount -t *target*:/ /tmp/nfs
 
-mount -t nfs 192.168.1.72:/home/vulnix /tmp/nfs -nolock
+mount -t nfs *target*:/home/vulnix /tmp/nfs
 
 cd /tmp
 
