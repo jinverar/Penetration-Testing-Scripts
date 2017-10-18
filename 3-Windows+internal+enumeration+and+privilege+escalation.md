@@ -62,7 +62,7 @@ https://www.youtube.com/watch?v=PC_iMqiuIRQ
 
 https://github.com/GDSSecurity/Windows-Exploit-Suggester     
 
-
+http://hackingandsecurity.blogspot.ca/2017/09/oscp-windows-priviledge-escalation.html
 
 
 ## Quick Commands
