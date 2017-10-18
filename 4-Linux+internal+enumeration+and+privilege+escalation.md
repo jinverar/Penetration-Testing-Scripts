@@ -73,13 +73,16 @@ https://blog.netspi.com/attacking-restricted-linux-shells/
 su root
 ```
 
-###
-
-check user access to sudo
+### check user access to sudo
 
 ```
 sudo -l
 ```
+
+### check user access to sudoedit
+
+sudoedit /etc/exports
+
 
 ####  Spawning shell
 python -c 'import pty; pty.spawn("/bin/sh")'
