@@ -1191,8 +1191,6 @@ convert results to html
 ```
 INSERTNIKTOSCAN
 
-
-
 ```
 
 ### Nikto list plugins
@@ -1236,46 +1234,94 @@ webmail
 
 save it as 'rootdirs.txt' we can scan for these directories using the dictionary plugin and the following command: 
 
-```
+
 nikto.pl -h *target* -Plugins "dictionary(dictionary:rootdirs.txt)"
 
 ```
+INSERTNIKTOSCAN
+
+```
+
 This will show any of the directories identified from our rootdirs.txt file. In the case that Nikto identifies Drupal you must then re-run Nikto against that specific base directory using the command:
 
 ### you must re-run nikto against the directory
 
-```
+
 perl nikto.pl -h *target-domain*drupal
+
 ```
+INSERTNIKTOSCAN
+
+```
+
 ### show nikto output as verbos
+
 
 perl nikto.pl -display V
 
 nikto -Display V -h *target-domain*
 
+```
+INSERTNIKTOSCAN
+
+```
+
+
 ### nikto with SQL injection
 
 nikto -Tuning 9 -h *target-domain*
 
+```
+INSERTNIKTOSCAN
+
+```
+
 ### nikto Scan for multiple test using
 
-nikto.pl -Tuning 69 -h *target-domain*
+
+nikto -Tuning 69 -h *target-domain*
+
+```
+INSERTNIKTOSCAN
+
+```
 
 ### nikto with omited tuning or do everything except DOS
 
 nikto -Tuning x 6 -h example.com
 
+```
+INSERTNIKTOSCAN
+
+```
+
 ### nikto perform an SQL injection test and save results to an html file with verbose output for your terminal:
 
-nikto -Display V -o results.html -Format htm -Tuning 9 -h example.com
+nikto -Display V -o results.html -Format htm -Tuning 9 -h *target-domain*
+
+```
+INSERTNIKTOSCAN
+
+```
 
 ### Nikto with squid proxy
 
+
 nikto -h *target* -useproxy http://INSERTIPADDRESS:4444
+
+```
+INSERTNIKTOSCAN
+
+```
 
 ### uniscan
 
 uniscan-u http://*target* -qweds
+
+```
+INSERTSCAN
+
+```
 
 ### Uniscan-GUI
 
@@ -1285,13 +1331,43 @@ Type “Uniscan-Gui”
 
 Whatweb -v *target-domain*
 
+```
+INSERTSCAN
+
+```
+
 ### wikto
 
+nikto too for windows
+
 ### Nmap port 80/443
+
+### nmap webdav 
+
+hxxp://nmap.org/nsedoc/scripts/http-iis-webdav-vuln.html
 
 nmap --script http-webdav-scan -p80,8080 *target*
 
 nmap --script http-iis-webdav-vuln -p80,8080 *target*
+
+nmap -sV --script=http-iis-webdav-vuln *target*
+
+if you know the name of a password-protected folder on the system, provide it directly:
+
+or you can get a list of folders from here http://www.skullsecurity.org/blogdata/folders.lst
+ 
+nmap -p80,8080 --script=http-iis-webdav-vuln --script-args=webdavfolder=secret *target*
+
+nmap -p80,8080 --script=http-iis-webdav-vuln --script-args=webdavfolder=\"my/folder/secret\" *target*
+
+If you provide a folder name yourself using the webdavfolder argument, you're going to have a lot more luck. As far as I know, once it has the name of a real password-protected folder, it's 100% reliable. The trick is finding one.
+
+After we find a password-protected folder, there's only one thing left to do: exploit it! This is done by putting a Unicode-encoded string at the beginning of the URL. Thus, "/private" becomes "/%c0%afprivate". If the error remains 401 Unauthorized, the server is not vulnerable (it may be non-IIS6, or it may not be using WebDAV). If the error becomes 207 Multi-status, we're vulnerable! That's it!
+
+```
+INSERTSCAN
+
+```
 
 
 ### ZENMAP
