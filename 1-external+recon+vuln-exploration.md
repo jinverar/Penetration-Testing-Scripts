@@ -2782,6 +2782,17 @@ bash: cd: /tmp/nfs: Permission denied
 ```
 if you get permission denied consider root squashing. Try to create a known user on your local machine. Then mount
 
+### check mounts on local machine
+
+df
+
+sudo /etc/init.d/nfs-common restart
+
+umount /tmp/nfs
+
+lsof | grep tmp/nfs
+
+finnaly a reboot will allow you to unmount if you get share is busy errors. 
 
 ### Port 2100 - Oracle XML DB
 
