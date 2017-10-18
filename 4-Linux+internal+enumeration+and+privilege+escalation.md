@@ -78,6 +78,17 @@ su root
 ```
 sudo -l
 ```
+look for issues in the error codes for example
+
+```
+User sara may run the following commands on this host:
+    (root) NOPASSWD: /bin/cat /accounts/*, (root) /bin/ls /accounts/*
+```
+The flaw in the above configuration is that /account/ is appended with a *. We can exploit this to read /root/flag.txt by traversing the directories.
+
+```
+sudo cat /accounts/../root/flag.txt
+```
 
 ### check user access to sudoedit
 
