@@ -1619,6 +1619,12 @@ example with the PHPmyadmin login page scanner
 
 wpscan -url *target-domain*
 
+--url specifiying the target, and --enumerate vp looking for vulnerabable plugins
+
+wpscan --url *target* --enumerate vp
+
+wpscan -u *target* --wordlist ~/dictionary --username *username*
+
 ### PARSERO
 
 Curl *target*/robots.txt -s | html2text
@@ -2391,6 +2397,7 @@ medusa -h admin.megacorpone.com -u admin -P mega-mangled -M http -n 81 -m DIR:/a
 ```
 hydra -l admin -P /root/Desktop/wordlists/500-worst-passwords.txt 10.194.0.36 http-get-form "/geeklog/users.php:login=^USER^&PASS^:Deny"
 
+hydra -l elliot -P ~/fsocity.dic *target* http-post-form “/wp-login.php:log=elliot&pwd=^PASS^:ERROR”
 
 hydra -l admin -P passwords.lst -e ns -vV 192.168.2.10 http-post-form "/phpmyadmin/index.php:pma_username=^USER^&pma_password=^PASS^&server=1:denied"
 ```
