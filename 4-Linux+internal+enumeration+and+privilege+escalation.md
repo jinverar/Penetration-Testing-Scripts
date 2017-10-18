@@ -622,12 +622,23 @@ cat /etc/ssh/ssh_host_key
 
 #### Privilege escalation recon scripts:
 
+These are scripts that you must run on the box
+
 http://www.securitysift.com/download/linuxprivchecker.py
 
 http://pentestmonkey.net/tools/audit/unix-privesc-check
 
+```
+
 upload /unix-privesc-check
 
+chmod u+x unix-privesx-check
+
+./unix-privesx-check > output.txt
+
+
+grep WARNING output.txt | less
+```
 upload /root/Desktop/Backup/Tools/Linux_privesc_tools/linuxprivchecker.py ./
 
 upload /root/Desktop/Backup/Tools/Linux_privesc_tools/LinEnum.sh ./
