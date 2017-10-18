@@ -718,6 +718,23 @@ PORT   STATE SERVICE VERSION
 root@kali:~#
 ```
 
+### proxytunnel
+
+If SSH is filtered as stated by the nmap scan. But we have SQUID proxy configured on port XXXX. we can access the SSH server by proxying the connection through the SQUID server on the target machine.
+
+Setup the tunnel with proxytunnel
+
+```
+root@kali:~# proxytunnel -p 192.168.1.24:3128 -d 127.0.0.1:22 -a 1234
+
+ssh john@127.0.0.1 -p 1234
+
+or
+
+ssh john@127.0.0.1 -p 1234 /bin/bash
+```
+
+
 ### PORT 23 Telnet
 
 
@@ -2082,6 +2099,26 @@ First thing you do if you get an error message is google it and verify which sql
 enter sql type
 
 ```
+
+use error codes to look for what is happening behind the scenes for example some SQL querys could be filtered
+
+one idea is that you may have to replace the following special characters
+
+```
+replace
+-- with #
+or with || 
+```
+
+so try
+
+```
+' || 1=1# 
+
+```
+
+
+
 ### Inline SQL injection
 
 http://securityidiots.com/Web-Pentest/SQL-Injection/
