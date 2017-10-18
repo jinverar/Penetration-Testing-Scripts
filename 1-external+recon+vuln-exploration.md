@@ -1331,6 +1331,11 @@ insert links here
 
 ### try command injection
 
+https://www.owasp.org/index.php/Testing_for_Command_Injection_(OTG-INPVAL-013)
+
+Important link that must be read during the exam. 
+https://www.contextis.com/blog/data-exfiltration-via-blind-os-command-injection
+
 ```
 ping; ls -hal
 ping | ls -hal
@@ -1344,6 +1349,8 @@ chmod
 cut
 sed
 awk
+
+Don't just try linux commands but also try windows command injections
 
 go into enumeration mode pulling blind files
 
@@ -1359,7 +1366,9 @@ setup lister
 Try other ways to execute one liner shells with command injection 
 
 ```
+### using burp for command injection
 
+https://support.portswigger.net/customer/en/portal/articles/2590661-using-burp-to-test-for-os-command-injection-vulnerabilities
 
 ### plecost scan
 
