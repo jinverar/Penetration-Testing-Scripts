@@ -1306,6 +1306,18 @@ curl *target* -s -L | html2text -width '99' | uniq
 
 ### Check if it is possible to upload
 
+Upload tricks you may need to add a null byte or change the suffix
+
+examples are
+
+=/tmp/shell.php%00
+
+.exe.txt
+
+.exe;.txt
+
+.exe%3b.txt
+
 ```
 curl -v -X OPTIONS http://*target*/
 
