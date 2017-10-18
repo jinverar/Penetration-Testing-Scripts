@@ -1078,11 +1078,16 @@ o	finger @internal@external
 ```
 
 ### Port 80 / 8080 - Web server
-- Server:
-- Scripting language:
-- Apache Modules:
+
 - IP-address: *target*
 - Domain-name address: *target-domain*
+- Server: *web-server*
+- Scripting language: *scripting*
+- Web server modules: *web-modules*
+- database type: *database*
+- database version:*database-version*
+- mysql version: *mysql-version*
+- web server stuff that is not permitted: TODO
 
 REF: Web Penetration testing with KALI LINUX
 
@@ -1169,6 +1174,8 @@ wget -r http://*target-domain*
 
 ### Nikto
 
+nikto --version
+
 nikto -update
 
 nikto -h http://*target*
@@ -1177,12 +1184,20 @@ nikto -h http://*target*
 
 nikto -h http://*target* -p 9999 *port number*
 
+nikto -h *target* -output nikto-results.xml
+
+convert results to html
+
 ```
 INSERTNIKTOSCAN
 
 
 
 ```
+
+### Nikto list plugins
+
+nikto -list-plugins
 
 ### Nikto Tunning
 
@@ -1206,6 +1221,53 @@ b – Software Identification
 c – Remote Source Inclusion
 x – Reverse Tuning Options (i.e., include all except specified)
 ```
+
+### Nikto with directory plugin
+
+create a dictionary called rootdirs.txt with the following
+
+```
+admin
+blog
+drupal
+mail
+webmail
+```
+
+save it as 'rootdirs.txt' we can scan for these directories using the dictionary plugin and the following command: 
+
+```
+nikto.pl -h *target* -Plugins "dictionary(dictionary:rootdirs.txt)"
+
+```
+This will show any of the directories identified from our rootdirs.txt file. In the case that Nikto identifies Drupal you must then re-run Nikto against that specific base directory using the command:
+
+### you must re-run nikto against the directory
+
+```
+perl nikto.pl -h *target-domain*drupal
+```
+### show nikto output as verbos
+
+perl nikto.pl -display V
+
+nikto -Display V -h *target-domain*
+
+### nikto with SQL injection
+
+nikto -Tuning 9 -h *target-domain*
+
+### nikto Scan for multiple test using
+
+nikto.pl -Tuning 69 -h *target-domain*
+
+### nikto with omited tuning or do everything except DOS
+
+nikto -Tuning x 6 -h example.com
+
+### nikto perform an SQL injection test and save results to an html file with verbose output for your terminal:
+
+nikto -Display V -o results.html -Format htm -Tuning 9 -h example.com
 
 ### Nikto with squid proxy
 
