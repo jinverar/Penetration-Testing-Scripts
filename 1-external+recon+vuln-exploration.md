@@ -2532,6 +2532,8 @@ ls -lh /usr/share/nmap/scripts/*shellshock*
 
 ### Password brute force 
 
+***This is a imporant section if you have found locations for username and password fields always try the rockyou.txt***
+
 If you come across a hard to enumerate host This is your go to technique find all logins and list them here and start bruteforceing
 
 REF: to the bruteforce tab in the web pentesters workbook. 
@@ -2544,15 +2546,74 @@ once the password list is ready then you can create more passwords, pass it on t
 
 john --wordlist=mega-cewl.txt --rules --stdout > mega-mangled
 
-brute force http
+### brute force http
 
 medusa -h admin.megacorpone.com -u admin -P mega-mangled -M http -n 81 -m DIR:/admin -T 30
 
 ### COMMON USER PASSWORD PROFILER (CUPP)
 
+*important* if you get usernames create wordlists based on that with cup.py
+```
+git clone https://github.com/Mebus/cupp.git
+
 1.	Python cup.py -i
 2.	Insert victim name and information
 3.	Get wordlist in cup directory
+4. 	make sure to read the cup config file
+```
+This tool is greate for generating passwords from information found about users such as names, birthdays, family members, 
+
+### john the ripper
+
+#### cracking with a wordlist
+
+./john --wordfile:pw.lst -format:<format> hash.txt
+	
+#### John format examples
+
+john --format=des      username:SDbsugeBiC58A
+john --format=lm       username: $LM$a9c604d244c4e99d
+john --format=md5      $1$12345678$aIccj83HRDBo6ux1bVx7D1
+
+look in red team field manual for more formats
+
+### Generate a wordlist based off single word
+
+#### Add lower(@), upper(,), number(%), and symbol(^) to the end of the word
+ 
+crunch 12 12 -t baseword@,%^ >> wordlist.txt
+
+#### use custom special character set and add 2 numbers then special character
+
+maskprocessor -custom-charset=\!\@\#\$ baseword?d?d?1 >> wordlist.txt
+
+
+### crunch
+
+crunch <min> max<max> <characterset> -t <pattern> -o <output filename>
+
+#### Create a Sample Wordlist
+
+./crunch 5 5 admin -o admin-user-name-outbut.txt
+
+
+#### create a wordlist that will include only numbers
+
+./crunch 5 5 12345 -o numbers.txt
+
+crunch 6 8 1234567890 -o /root/numericwordlist.lst
+
+#### create a wordlist that will include letters and numbers
+
+./crunch 5 5 pentestlab123 -o numbersletters.txt
+
+#### create a wordlist that will include special characters
+
+./crunch 5 5 pentestlab\%\@\!
+
+#### If we knew that the target's birthday was July 28 and they likely used that date 
+
+crunch 10 10 -t @@@@@@0728 -o /root/birthdaywordlist.lst
 
 ### hydra
 
@@ -2629,11 +2690,13 @@ Ref web pentesting with kali linux kindle
 ### try and crack passwords
 
 ### johny
-Crowbar
 
-Burpsuite intruder
 
-### crunch
+### Crowbar
+
+### Burpsuite intruder
+
+use all the wordlists with burpsuite intruder and look for http 200 ok
 
 
 For many more web attacks go to the web application pentesting workbook
