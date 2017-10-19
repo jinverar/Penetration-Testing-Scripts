@@ -64,6 +64,7 @@ https://github.com/GDSSecurity/Windows-Exploit-Suggester
 
 http://hackingandsecurity.blogspot.ca/2017/09/oscp-windows-priviledge-escalation.html
 
+https://blog.netspi.com/windows-privilege-escalation-part-1-local-administrator-privileges/
 
 ## Quick Commands
 
@@ -197,6 +198,12 @@ Now we start the whole enumeration-process over gain. This is a checklist. You n
 Here you will add all possible leads. What to try.
 
 
+### Windows exploit suggester
+
+### beroot
+
+https://github.com/AlessandroZ/BeRoot
+
 #### whoami
 
 Lists your current user. Not present in all versions of Windows; however shall be present in Windows NT 6.0-6.1.
@@ -267,6 +274,12 @@ https://pentestlab.blog/2017/05/03/uac-bypass-task-scheduler/
 C:\>SchTasks /Create /SC DAILY /TN "NoUAC" /TR "C:\Users\User\Desktop\pentestlab3
 .exe" /ST 23:36
 ```
+
+### unquoted service paths
+
+https://blog.avecto.com/2015/11/path-of-enlightenment-part-1/
+
+https://blog.avecto.com/2015/12/path-of-enlightenment-part-2-taking-tasks-to-task-2/
 
 #### sam file 
 
