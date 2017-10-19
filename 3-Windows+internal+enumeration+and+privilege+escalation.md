@@ -66,6 +66,8 @@ http://hackingandsecurity.blogspot.ca/2017/09/oscp-windows-priviledge-escalation
 
 https://blog.netspi.com/windows-privilege-escalation-part-1-local-administrator-privileges/
 
+http://www.hackingarticles.in/7-ways-get-admin-access-remote-windows-pc-bypass-privilege-escalation/
+
 ## Quick Commands
 
 #### Windows add user
