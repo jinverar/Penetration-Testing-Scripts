@@ -602,7 +602,11 @@ Categories: exploit intrusive malware vuln
 Insert Scan
 
 ```
+#### Curl the FTP site
 
+curl ftp://user:pass@*target*/directory
+
+#### browse to the ftp site and see if you can upload stuff
 
 #### python ftpanon.py *target*/24
 
@@ -1130,6 +1134,14 @@ In case you have to follow a redirect
 ```
 curl -i -L *target*
 ```
+
+#### Scrape the site once you login again
+
+```
+curl -u user:pass -o outfile https://*target*
+```
+
+
 
 - domain name or target index page: http://*target-domain*
 - Web application (ex, wordpress, joomla, phpmyadmin)
