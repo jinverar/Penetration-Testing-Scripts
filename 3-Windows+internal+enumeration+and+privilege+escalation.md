@@ -275,6 +275,12 @@ C:\>SchTasks /Create /SC DAILY /TN "NoUAC" /TR "C:\Users\User\Desktop\pentestlab
 .exe" /ST 23:36
 ```
 
+### Scheduled tasks privescalation 
+
+https://www.exploit-db.com/exploits/15589/
+
+just upload to target and run it like a .exe the file is a windows scripting file. remember to change the username and password within the file. 
+
 ### unquoted service paths
 
 https://blog.avecto.com/2015/11/path-of-enlightenment-part-1/
