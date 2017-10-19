@@ -147,6 +147,12 @@ by one starting with
 
 •	Open up your saved pcap file inside “network miner”
 
+•	If you got here then run the "sniper pentesting tool"
+
+•	https://github.com/1N3/Sn1per
+
+•	https://www.darknet.org.uk/2017/05/sn1per-penetration-testing-automation-scanner/
+
 •	Upload danderspritz and fuzzbunch to win7 host
 
 •	Review both metasploitable 1 and 2 hacking guides
