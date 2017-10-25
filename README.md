@@ -1,4 +1,4 @@
-[![Everything Is AWESOME](https://github.com/jinverar/Penetration-Testing-Scripts/blob/master/playable-snip.JPG)](https://youtu.be/G9JcTkrvYuc "Everything Is AWESOME")
+[![Penetration testing methodology](https://github.com/jinverar/Penetration-Testing-Scripts/blob/master/playable-snip.JPG)](https://youtu.be/G9JcTkrvYuc "PWK Scripts in a custom Juypter Notebook")
 
 # Penetration-Testing-Scripts
 My recon and vuln scripts
@@ -12,6 +12,8 @@ the current concept is to use juypter notebooks with markdown language and impor
 The future concept is to leverage the power of Juypter which can import and read other files such as .html, .csv, or xml. Then the idea is to start importing scans and figure out how to parse them with juypter later on. We can create graphs and do big data analysis along with penetration testing.  
 
 We can run juypter notebook from KALI or another local server and colaborate and share notebooks. 
+
+[![Penetration testing methodology](https://github.com/jinverar/Penetration-Testing-Scripts/blob/master/playable2-snip.JPG)](https://youtu.be/YR2kNf9Wf5Q "Exploitation scripts in a custom Juypter Notebook")
 
 # requirements
 
