@@ -5,9 +5,9 @@ My recon and vuln scripts
 
 These files are ment to work with juypter notebook. The idea is to import them into juypter and then duplicate the notebooks then when you select a target all you need to do is rename the copy to be *ipaddress*(hostname). 
 
-The first one to duplicate is called number 1. recon + vulns and after that it's just a simple copy and paste from 2,3,4 into the cells below the duplicated copy. Do this for whatever part of the kill chain you are working on. 
+The first one to duplicate is called number "1-external+recon+vuln-exploration.md" and after that it's just a simple copy and paste from 2,3,4 into the cells below the "1-External+Recon+vuln". Do this for whatever part of the kill chain you are working on. 
 
-the current concept is to use juypter notebooks with markdown language and import pictures into cells below. This can aid in writing pentesting reports and keep us organized. 
+the current concept is to use juypter notebooks with markdown language and import pictures into cells above or below. This can aid in writing pentesting reports and keep us organized. 
 
 The future concept is to leverage the power of Juypter which can import and read other files such as .html, .csv, or xml. Then the idea is to start importing scans and figure out how to parse them with juypter later on. We can create graphs and do big data analysis along with penetration testing.  
 
