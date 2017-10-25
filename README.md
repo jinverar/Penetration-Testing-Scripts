@@ -3,7 +3,7 @@
 # Penetration-Testing-Scripts
 My recon and vuln scripts
 
-These files are ment to work with juypter notebook. The files within this project get imported into juypter or copy and paste into Juypter Markdown cells. Then duplicate the notebooks and when you select a target all you need to do is rename the title of the copy notebook to be //project//*ipaddress*//hostname//. Then use the ESC + F key and find and replace *target* with target-ipaddress.
+These files are meant to work with juypter notebook. The files within this project get imported into juypter or you can easily copy and paste the files into Juypter using markdown cells. Then we can duplicate the notebooks as seen in the video. When you select a target all you need to do is rename the title of the copy notebook to be //project//ipaddress//hostname//. Then use the ESC + F key and find and replace *target* with target-ipaddress. You can find and replace multiple fields as discribed in the videos. 
 
 Once the files are in Juypter then the first file to duplicate is called "1-external+recon+vuln-exploration.md" and after that it's just a simple copy and paste from 2,3,4 into the cells below the "1-External+Recon+vuln". Do this for whatever part of the kill chain you are working on. 
 
