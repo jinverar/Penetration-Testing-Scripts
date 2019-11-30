@@ -26,18 +26,56 @@ pip3 install jupyter
 
 # run juypter
 
+```
 jupyter notebook
+```
 
-# enable ssl with juypter
+# step one generate config
+
+```
+jupyter notebook --generate-config
+
+his command will create the Jupyter folder if necessary, and create notebook configuration file, jupyter_notebook_config.py, in this folder.
+
+Windows: C:\Users\USERNAME\.jupyter\jupyter_notebook_config.py
+
+OS X: /Users/USERNAME/.jupyter/jupyter_notebook_config.py
+
+Linux: /home/USERNAME/.jupyter/jupyter_notebook_config.py
+```
+# utilize ssl with juypter
+
+## Generate your keys to keep notebooks secure
+
 ```
 linux
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
 
 windows win GnuWin32 
 openssl req -x509 -config "C:\Program Files (x86)\GnuWin32\share\openssl.cnf" -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
- 
+
+run jupter on linux
 jupyter notebook  --config=/home/*user*/.jupyter/jupyter_notebook_config.py --certfile=/home/*user*/.jupyter/jupytercert.pem --keyfile /home/*user*/.jupyter/mykey.key --ip=*ip*
+
+run jupter on windows
+jupyter notebook  --config=C:\Users\LabUser\.jupyter\jupyter_notebook_config.py --certfile=C:\Users\User\Documents\jupyterNotebooks\jupytercert.pem --keyfile C:\Users\User\Documents\jupyterNotebooks\mykey.key --ip=*ip*
+
 ```
+
+# modify the config file to enable SSL
+
+```
+Once you have generated the key and certificate, you can configure the notebook server to use them, by adding the following to jupyter_notebook_config.py:
+
+# The full path to an SSL/TLS certificate file.
+c.NotebookApp.certfile = u'/Users/bgranger/.jupyter/mycert.crt'
+
+# The full path to a private key file for usage with SSL/TLS.
+c.NotebookApp.keyfile = u'/Users/bgranger/.jupyter/mycert.key'
+
+```
+
+
 # play with some juypter extentions
 ```
 pip install jupyter_contrib_nbextensions
