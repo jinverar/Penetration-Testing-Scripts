@@ -30,8 +30,12 @@ jupyter notebook
 
 # enable ssl with juypter
 ```
+linux
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
 
+windows win GnuWin32 
+openssl req -x509 -config "C:\Program Files (x86)\GnuWin32\share\openssl.cnf" -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out jupytercert.pem
+ 
 jupyter notebook  --config=/home/*user*/.jupyter/jupyter_notebook_config.py --certfile=/home/*user*/.jupyter/jupytercert.pem --keyfile /home/*user*/.jupyter/mykey.key --ip=*ip*
 ```
 # play with some juypter extentions
