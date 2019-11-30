@@ -62,7 +62,19 @@ jupyter notebook  --config=C:\Users\LabUser\.jupyter\jupyter_notebook_config.py 
 
 ```
 
+# enable a password for users to login
+
+```
+$ jupyter notebook password
+Enter password:  ****
+Verify password: ****
+[NotebookPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_notebook_config.json
+
+```
+
 # modify the config file to enable SSL
+
+### you don't have to do this if you use the command above
 
 ```
 Once you have generated the key and certificate, you can configure the notebook server to use them, by adding the following to jupyter_notebook_config.py:
